@@ -2,6 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Calculadora from "./src/screens/Calculadora.js";
 import Drawer from "./src/screens/Drawer.js";
+import icon from "react-native-vector-icons/MaterialIcons.js"
 
 const Stack = createStackNavigator();
 
