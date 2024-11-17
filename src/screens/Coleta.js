@@ -47,7 +47,7 @@ const estilos = StyleSheet.create({
         backgroundColor: '#372775',
         padding: '5%',
         height: '100%',
-        gap: '10%',
+        gap: '15%',
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'column'
