@@ -8,8 +8,8 @@ const Stack = createStackNavigator();
 const App = () =>{
   return(
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Calculadora" screenOptions={{ headerShown: false, headerTintColor: 'blue', headerTitleStyle:{color:"white"} , headerStyle: {backgroundColor: "#BBBBBB"}  }}>
-      <Stack.Screen name="Calculadora" component={Calculadora} />
+      <Stack.Navigator initialRouteName="Drawer" screenOptions={{ headerShown: false, headerTintColor: 'blue', headerTitleStyle:{color:"white"} , headerStyle: {backgroundColor: "#BBBBBB"}  }}>
+      <Stack.Screen name="Drawer" component={Drawer} />
       </Stack.Navigator>
     </NavigationContainer>
   )
