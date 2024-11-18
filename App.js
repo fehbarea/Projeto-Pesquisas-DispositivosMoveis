@@ -7,6 +7,7 @@ import icon from "react-native-vector-icons/MaterialIcons.js"
 import Coleta from "./src/screens/Coleta.js"
 import Relatorio from "./src/screens/Relatorio.js"
 import AcoesDePesquisa from "./src/screens/AcoesDePesquisa.js";
+import RecuperaraSenha from "./src/screens/recuperarSenha.js";
 
 const Stack = createStackNavigator();
 
@@ -14,7 +15,7 @@ const App = () =>{
   return(
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Calculadora" screenOptions={{ headerShown: false, headerTintColor: 'blue', headerTitleStyle:{color:"white"} , headerStyle: {backgroundColor: "#BBBBBB"}  }}>
-      <Stack.Screen name="Calculadora" component={AcoesDePesquisa} />
+      <Stack.Screen name="Calculadora" component={RecuperaraSenha} />
       </Stack.Navigator>
     </NavigationContainer>
   )
