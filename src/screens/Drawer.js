@@ -1,12 +1,12 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import CustomDrawer from "../components/CustomDrower.js";
-import Calculadora from "./Calculadora.js";
-import Home from "./Home.js";
+import Home from "./Home";
+import Icon from 'react-native-vector-icons/MaterialIcons'
+import CustomDrawer from "../components/CustomDrawer";
 
-
-const DrawerNavigator = createDrawerNavigator();
+const DrawerNavigator = createDrawerNavigator()
 
 const Drawer = () =>{
+
     return(
         <DrawerNavigator.Navigator
             drawerContent={(props) => <CustomDrawer{...props} />}
@@ -20,11 +20,11 @@ const Drawer = () =>{
                 },
                 headerTintColor: 'white',
                 headerTitle: ''
-        }}
-        >
+        }}>
             <DrawerNavigator.Screen name="Home" component={Home}/>
         </DrawerNavigator.Navigator>
-    )
+    )
+
 }
 
-export default Drawer;
+export default Drawer
