@@ -8,21 +8,31 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 
 const AcoesDePesquisa = (props) => {
 
+    const navigateScreenModificar = ()=>{
+    
+    }
 
+    const navigateScreenColetaDedos= ()=>{
+    
+    }
+
+    const navigateScreenRelatorio = ()=>{
+    
+    }
 
     return (
         <View style={estilos.view}>
 
             <View style={estilos.containerBotoes}>
-                <TouchableOpacity style={estilos.botao}>
+                <TouchableOpacity onPress={navigateScreenModificar} style={estilos.botao}>
                     <Icon name='file-document-edit-outline' size={60} style={estilos.iconBotao}/>
                     <Text style={estilos.textoBotao}>Modificar</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={estilos.botao} >
+                <TouchableOpacity onPress={navigateScreenColetaDedos}  style={estilos.botao} >
                 <Icon name='checkbox-multiple-marked-outline' size={60} style={estilos.iconBotao}/>
                     <Text style={estilos.textoBotao}>Coletar dados</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={estilos.botao} >
+                <TouchableOpacity onPress={navigateScreenRelatorio} style={estilos.botao} >
                 <Icon name='chart-donut' size={60} style={estilos.iconBotao}/>
                     <Text style={estilos.textoBotao}>Relatório</Text>
                 </TouchableOpacity>

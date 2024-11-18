@@ -8,6 +8,9 @@ import Icon from "react-native-vector-icons/MaterialIcons"
 
 const AcoesDePesquisa = (props) => {
 
+    const navigateScreen = ()=>{
+    
+    }
 
 
     return (
@@ -16,23 +19,23 @@ const AcoesDePesquisa = (props) => {
             <Text style={estilos.titulo}>O que você achou do Carnaval 2024?</Text>
 
             <View style={estilos.containerBotoes}>
-                <TouchableOpacity style={estilos.botao}>
+                <TouchableOpacity onPress={navigateScreen} style={estilos.botao}>
                     <Icon name='sentiment-very-dissatisfied' size={60} style={[estilos.iconBotao, {color:"#D71616"}]}/>
                     <Text style={estilos.textoBotao}>Péssimo</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={estilos.botao} >
+                <TouchableOpacity onPress={navigateScreen} style={estilos.botao} >
                 <Icon name='sentiment-dissatisfied' size={60} style={[estilos.iconBotao, {color:"#FF360A"}]}/>
                     <Text style={estilos.textoBotao}>Ruim</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={estilos.botao} >
+                <TouchableOpacity onPress={navigateScreen} style={estilos.botao} >
                 <Icon name='sentiment-neutral' size={60} style={[ estilos.iconBotao, {color:"#FFC632"}]}/>
                     <Text style={estilos.textoBotao}>Neutro</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={estilos.botao} >
+                <TouchableOpacity onPress={navigateScreen} style={estilos.botao} >
                 <Icon name='sentiment-satisfied-alt' size={60} style={[estilos.iconBotao , {color:"#37BD6D"}]}/>
                     <Text style={estilos.textoBotao}>Bom</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={estilos.botao} >
+                <TouchableOpacity onPress={navigateScreen} style={estilos.botao} >
                 <Icon name='sentiment-very-satisfied' size={60} style={[estilos.iconBotao , {color:"#25BC22"}]}/>
                     <Text style={estilos.textoBotao}>Excelente</Text>
                 </TouchableOpacity>

@@ -9,7 +9,6 @@ import Icon from "react-native-vector-icons/MaterialIcons"
 const AcoesDePesquisa = (props) => {
 
 
-
     return (
         <View style={estilos.view}>
             
