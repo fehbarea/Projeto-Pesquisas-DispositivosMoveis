@@ -8,17 +8,22 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 const AcoesDePesquisa = (props) => {
 
     const [txtEmail, setEmail] = useState('');
-    const [emailInvalido, setEmailInvalido] = useState(false)
+
+    const [msgError, setMsgError] = useState('')
 
     const navigateToLogin = () => {
-        console.log(verificaEmail(txtEmail))
+        let emailInvalido = verificaEmail(txtEmail);
+       emailInvalido ? setMsgError('E-mail parece ser inválido') : setMsgError('');
+        if(emailInvalido){
+            return;
+        }
+        //props...
     }
 
     const verificaEmail = (email) =>{
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        let valid = emailPattern.test(email)
-        setEmailInvalido(true)
-        return 
+        let valid = emailPattern.test(email);
+        return !valid;
     }
 
     return (
@@ -27,7 +32,7 @@ const AcoesDePesquisa = (props) => {
                 <View style={estilos.ContainerEmail}>
                     <Text style={estilos.labelEmail}>E-mail</Text>
                     <TextInput style={estilos.textInput} value={txtEmail} onChangeText={setEmail} placeholder="jurandir.pereira@hotmail.com" />
-                    <Text  style={estilos.textWarn}>E-mail parece ser inválido</Text>
+                    <Text  style={estilos.textWarn}>{msgError}</Text>
                 </View> 
 
                 <View style={estilos.containerBotoes}>
