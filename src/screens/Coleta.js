@@ -50,7 +50,7 @@ const estilos = StyleSheet.create({
         backgroundColor: '#372775',
         padding: '5%',
         height: '100%',
-        gap: '15%',
+        flex:1,
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'column'
@@ -59,14 +59,14 @@ const estilos = StyleSheet.create({
         color: 'white',
         textAlign: 'center',
         fontSize: 22.5,
-        fontFamily: 'AveriaLibre-Regular'
-    },
+        fontFamily: 'AveriaLibre-Regular',
+        flex:0.5   
+     },
     containerBotoes: {
-        
         flexDirection: "row",
         justifyContent:'space-between',
-        alignItems: "center",
-        
+        alignItems: 'flex-start',
+        flex:0.5   
     },
     botao: {
         width:'20%',

@@ -12,7 +12,10 @@ const AcoesDePesquisa = (props) => {
     return (
         <View style={estilos.view}>
             
-            <Image style={estilos.image} resizeMode="cotain" source={require('../imgs/grafico.png')} />
+            <View style={estilos.containerImage}>
+                <Image style={estilos.image} resizeMode="contain" source={require('../imgs/grafico.png')} />
+            </View>
+
             <View style={estilos.containerLegenda}>
             <View style={estilos.legenda}>
                 <View style={[estilos.bloquinho, {backgroundColor: '#F1CE7E'}]} />
@@ -43,35 +46,42 @@ const estilos = StyleSheet.create({
 
     view:{
         backgroundColor: '#372775',
-        padding: '5%',
-        height: '100%',
-        gap: '15%',
+        flex:1,
+        gap: '5%',
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row'
     },
+    containerImage:{
+        flex: 0.7,
+        justifyContent: 'center',
+        alignItems: 'center'
+        
+    },
     image:{
-        width: 200,
-        height: 200,
+        height: "100%", 
+        width: "100%", 
+       
     },
     bloquinho:{
-        width: 15,
-        height: 15
+        width: 25,
+        height: 25
     },
     textoBotao:{
         color: 'white',
         textAlign: 'center',
-        fontSize: 15,
+        fontSize: 20,
         fontFamily: 'AveriaLibre-Regular'
     },
     legenda:{
         flexDirection: 'row',
-        gap: '8%'
+        gap: '5%'
     },
      containerLegenda:{
         flexDirection:'column',
-        justifyContent: "space-between",
-        height: "120"
+        justifyContent: "Center",
+        gap:'5%',
+        flex: 0.3
      }
 })
 

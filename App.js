@@ -14,7 +14,7 @@ const Stack = createStackNavigator();
 const App = () =>{
   return(
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Calculadora" screenOptions={{ headerShown: false, headerTintColor: 'blue', headerTitleStyle:{color:"white"} , headerStyle: {backgroundColor: "#BBBBBB"}  }}>
+      <Stack.Navigator initialRouteName="Calculadora" screenOptions={{ headerShown: true, headerTintColor: 'blue', headerTitleStyle:{color:"white"} , headerStyle: {backgroundColor: "#BBBBBB"}  }}>
       <Stack.Screen name="Calculadora" component={RecuperaraSenha} />
       </Stack.Navigator>
     </NavigationContainer>

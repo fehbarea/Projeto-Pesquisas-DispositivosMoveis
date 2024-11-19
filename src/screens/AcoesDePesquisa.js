@@ -25,15 +25,15 @@ const AcoesDePesquisa = (props) => {
 
             <View style={estilos.containerBotoes}>
                 <TouchableOpacity onPress={navigateScreenModificar} style={estilos.botao}>
-                    <Icon name='file-document-edit-outline' size={60} style={estilos.iconBotao}/>
+                    <Icon name='file-document-edit-outline' size={100} style={estilos.iconBotao}/>
                     <Text style={estilos.textoBotao}>Modificar</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={navigateScreenColetaDedos}  style={estilos.botao} >
-                <Icon name='checkbox-multiple-marked-outline' size={60} style={estilos.iconBotao}/>
+                <Icon name='checkbox-multiple-marked-outline' size={100} style={estilos.iconBotao}/>
                     <Text style={estilos.textoBotao}>Coletar dados</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={navigateScreenRelatorio} style={estilos.botao} >
-                <Icon name='chart-donut' size={60} style={estilos.iconBotao}/>
+                <Icon name='chart-donut' size={100} style={estilos.iconBotao}/>
                     <Text style={estilos.textoBotao}>Relatório</Text>
                 </TouchableOpacity>
             </View>
@@ -45,7 +45,8 @@ const AcoesDePesquisa = (props) => {
 const estilos = StyleSheet.create({
     view:{
         backgroundColor: '#372775',
-        padding: '5%',
+        paddingLeft:'5%',
+        paddingRight:'5%',
         height: '100%',
         alignItems: 'center',
         justifyContent: 'center'
@@ -60,15 +61,19 @@ const estilos = StyleSheet.create({
     botao: {
         gap:2,
         backgroundColor: '#312464',
-        height: 100,
-        width: 100,
+        height: "200",
+        width: "200",
         padding: 10,
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent:'center'
     },
     textoBotao:{
         color: 'white',
         textAlign: 'center',
-        fontSize: 12.5,
-        fontFamily: 'AveriaLibre-Regular'
+        fontSize: 25,
+        fontFamily: 'AveriaLibre-Regular',
+
     },
     iconBotao:{
         color: 'white',

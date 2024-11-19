@@ -31,7 +31,7 @@ const AcoesDePesquisa = (props) => {
 
                 <View style={estilos.ContainerEmail}>
                     <Text style={estilos.labelEmail}>E-mail</Text>
-                    <TextInput style={estilos.textInput} value={txtEmail} onChangeText={setEmail} placeholder="jurandir.pereira@hotmail.com" />
+                    <TextInput style={estilos.textInput} value={txtEmail} onChangeText={setEmail}/>
                     <Text  style={estilos.textWarn}>{msgError}</Text>
                 </View> 
 
@@ -51,12 +51,13 @@ const estilos = StyleSheet.create({
     view: {
         flex:1,
         backgroundColor: '#372775',
-        padding: '5%',
+        paddingLeft:'15%',
+        paddingRight: '15%',
         alignItems: 'center',
         justifyContent: 'center',
     },
     containerBotoes: {
-        flex:0.5,
+        flex:0.3,
         flexDirection: "column",
         width: '100%',
         justifyContent: 'flex-end',
@@ -79,10 +80,11 @@ const estilos = StyleSheet.create({
         backgroundColor: '#ffffff',
         width: "100%",
         fontSize: 20,
-        textAlignVertical: 'center'
+        textAlignVertical: 'center', 
+        color: '#3F92C5'
     },
     ContainerEmail: {
-        flex:0.5,
+        flex:0.7,
         width: '100%',
         justifyContent: 'flex-end',
         gap:5
