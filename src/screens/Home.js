@@ -34,7 +34,7 @@ const Home = (props) => {
 
       <View style={estilos.cBotoes}>
         <TouchableOpacity style={estilos.botao} onPress={novaPesquisa}>
-          <Text style={estilos.textoBotao}>Nova Pesquisa</Text>
+          <Text style={estilos.textoBotao}>NOVA PESQUISA</Text>
         </TouchableOpacity>
       </View>
       
@@ -46,52 +46,66 @@ const estilos = StyleSheet.create({
 
   view: {
     flex: 1,
-    flexDirection: "column",
-    padding: 10,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     backgroundColor:"#372775"
   },
   cBusca: {
-    flex:0.06,
+    width: "90%",
+    flex:0.10,
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    alignItems: 'center',
-    backgroundColor: 'white',
+    alignItems: 'flex-start',
+
   },
   cPesquisas: {
-    flex:0.72,
+    flex:0.65,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center'
   },
   cBotoes: {
-    flex:0.20,
+    width: "90%",
+    backgroundColor: 'green',
+    flex:0.15,
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
-    padding: 10
   },
 
   iconBusca:{
-    color: 'gray'   
+    color: 'gray',  
+    backgroundColor: 'white' ,
+    width:"5%",
+    height: '100%'
   },
 
   inputBusca: {
-    fontSize: 20,
+    width:"95%",
+    fontSize: 15,
     fontFamily: 'AveriaLibre-Regular',
-    
+    backgroundColor: 'white',
+    height: '100%',
+    paddingTop:0,
+    textAlignVertical: 'center',
+    paddingBottom: 0
   },
 
   botao: {
-    padding: 10,
+    height: "100%",
     backgroundColor: '#37BD6D',
     width:"100%",
-    alignItems: 'center'
+    textAlignVertical: 'center',
+    textAlign: 'center',
   },  
   textoBotao:{
-    fontSize: 30,
+    fontSize: 20,
     color: "white",
     fontFamily: 'AveriaLibre-Regular',
-    textAlign: 'center'
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    height: "100%"   
 },
 
 

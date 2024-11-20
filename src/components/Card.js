@@ -29,31 +29,31 @@ const Card = (props)=>{
 
 const estilos = StyleSheet.create({
     view:{
-        margin:5,
+        margin:20,
         flex:1,
         backgroundColor: 'white',
         flexDirection: 'column',
         justifyContent: 'space-between',
         textAlign: 'center',
         borderRadius: 15,
-        height: "50%",
+        height: "90%",
     },
     cImagem:{
-        padding: 10,
-        flex:0.4,
+        padding: 5,
+        flex:0.50,
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center'
     },
 
     cTitulo:{
-        flex:0.4,
+        flex:0.30,
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
     },
     cData:{
-        flex:0.2,
+        flex:0.20,
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center'

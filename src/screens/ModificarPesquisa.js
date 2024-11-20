@@ -21,6 +21,10 @@ const ModificarPesquisa = () => {
 
   }
 
+  const apagar = () => {
+    console.log("clicou em apagar");
+  }
+
   return(
     <View style={estilos.view}>
 
@@ -49,9 +53,13 @@ const ModificarPesquisa = () => {
         <TouchableOpacity style={estilos.botao} onPress={salvar}>
           <Text style={estilos.textoPadrao}>Salvar</Text>
         </TouchableOpacity>
-        <View style={estilos.cIconeApagar}>
-          <Icon name='trash-can-outline' size={40} style={estilos.iconApagar}/>
+
+        <View style={estilos.cIconeApagar} >
+          <TouchableOpacity onPress={apagar}>
+            <Icon name='trash-can-outline' size={40} style={estilos.iconApagar}/>
+          </TouchableOpacity>
           <Text style={estilos.textoIconeApagar}>Apagar</Text>
+
         </View>
       </View>
       
@@ -72,7 +80,7 @@ const estilos = StyleSheet.create({
   
   cNome: {
     width: "70%",
-    flex:0.20,
+    flex:0.25,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'flex-start',
@@ -80,16 +88,15 @@ const estilos = StyleSheet.create({
 
   cData: {
     width: "70%",
-    flex:0.15,
+    flex:0.20,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'flex-start',
-    paddingBottom: 20
   },
 
   cImagem: {
     width: "70%",
-    flex:0.20,
+    flex:0.30,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'flex-start',
@@ -98,7 +105,7 @@ const estilos = StyleSheet.create({
 
   cBotao: {
     width: "100%",
-    flex:0.35,
+    flex:0.25,
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'flex-end',
@@ -110,7 +117,7 @@ const estilos = StyleSheet.create({
     width: "100%",
     flex:1,
     flexDirection: 'row',
-    justifyContent: 'center'
+    justifyContent: 'space-between'
   },
 
   cRespostaImagem:{
@@ -130,6 +137,7 @@ const estilos = StyleSheet.create({
   },
 
   iconCalendario:{
+    flex:0.08,
     color: 'gray',
   },
 
@@ -138,16 +146,17 @@ const estilos = StyleSheet.create({
 
   },
   inputTextData:{
+    flex:0.92,
     paddingLeft:10,
     width: "80%",
-    fontSize: 20,
+    fontSize: 15,
     fontFamily: 'AveriaLibre-Regular',
   },
 
   inputText: {
     paddingLeft:10,
     width: "100%",
-    fontSize: 20,
+    fontSize: 15,
     fontFamily: 'AveriaLibre-Regular',
     backgroundColor: 'white'
   },
@@ -161,17 +170,17 @@ const estilos = StyleSheet.create({
   botao: {
     padding: 10,
     backgroundColor: '#37BD6D',
-    width:"80%",
+    width:"70%",
   },  
 
   textoPadrao:{
-    fontSize: 30,
+    fontSize: 15,
     color: "white",
     fontFamily: 'AveriaLibre-Regular',
     textAlign: 'center'
   },
   textoValidacao:{
-    fontSize: 20,
+    fontSize: 15,
     color: "#FD7979",
     fontFamily: 'AveriaLibre-Regular',
   },

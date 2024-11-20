@@ -14,8 +14,8 @@ const NovaPesquisa = (props) => {
   const [txtData, setData] = useState("");
   const [txtImagem, setImagem] = useState("");
 
-  const[txtErroNome,setErroNome] = useState("");
-  const[txtErroData,setErroData] = useState("");
+  const[txtErroNome,setErroNome] = useState("Preencha o nome da pesquisa");
+  const[txtErroData,setErroData] = useState("Preencha a data");
 
   const cadastrar = () => {
 
@@ -26,35 +26,37 @@ const NovaPesquisa = (props) => {
 
   return(
     <View style={estilos.view}>
+      <View style={estilos.view2}>
 
-      <View style={estilos.cNome}>
-        <Text style={estilos.textoPadrao}>Nome</Text>
-        <TextInput style={estilos.inputText} label='Nome' value={txtNome} onChangeText={setNome} />
-        <Text style={estilos.textoValidacao}>{txtErroNome}</Text>
-      </View>
+        <View style={estilos.cNome}>
+          <Text style={estilos.textoPadrao}>Nome</Text>
+          <TextInput style={estilos.inputText} label='Nome' value={txtNome} onChangeText={setNome} />
+          <Text style={estilos.textoValidacao}>{txtErroNome}</Text>
+        </View>
 
-      <View style={estilos.cData}>
-        <Text style={estilos.textoPadrao}>Data</Text>
+        <View style={estilos.cData}>
+          <Text style={estilos.textoPadrao}>Data</Text>
 
-        <View style={estilos.cInputData}>
-          <TextInput style={estilos.inputTextData} label='Data' value={txtData} onChangeText={setData} />
-          <Icon name='calendar-month-outline' size={40} style={estilos.iconCalendario}/>
+          <View style={estilos.cInputData}>
+            <TextInput style={estilos.inputTextData} label='Data' value={txtData} onChangeText={setData} />
+            <Icon name='calendar-month-outline'  size={30} style={estilos.iconCalendario}/>
+          </View>
+          
+          <Text style={estilos.textoValidacao}>{txtErroData}</Text>
+        </View>
+
+        <View style={estilos.cImagem}>
+          <Text style={estilos.textoPadrao}>Imagem</Text>
+          <TextInput style={estilos.inputImagem} label='Imagem' value={txtImagem} onChangeText={setImagem} placeholder="Câmera/Galeria de imagens"/>
+        </View>
+
+        <View style={estilos.cBotao}>
+          <TouchableOpacity style={estilos.botao} onPress={cadastrar}>
+            <Text style={estilos.textoBotaoCadastrar}>CADASTRAR</Text>
+          </TouchableOpacity>
         </View>
         
-        <Text style={estilos.textoValidacao}>{txtErroData}</Text>
       </View>
-
-      <View style={estilos.cImagem}>
-        <Text style={estilos.textoPadrao}>Imagem</Text>
-        <TextInput style={estilos.inputImagem} label='Imagem' value={txtImagem} onChangeText={setImagem} placeholder="Câmera/Galeria de imagens"/>
-      </View>
-
-      <View style={estilos.cBotao}>
-        <TouchableOpacity style={estilos.botao} onPress={cadastrar}>
-          <Text style={estilos.textoPadrao}>Cadastrar</Text>
-        </TouchableOpacity>
-      </View>
-      
     </View>
   );
 }
@@ -64,13 +66,33 @@ const estilos = StyleSheet.create({
   view: {
     flex: 1,
     flexDirection: "column",
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 10,
+    paddingTop: 5,
+    paddingBottom: 10,
     backgroundColor:"#372775"
+  },
+  view2: {
+    
+    flex: 1,
+    width: "80%",
+    flexDirection: "column",
+    justifyContent: 'space-between',
+    
   },
   
   cNome: {
+
+    width: "90%",
+    flex:0.20,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    marginBottom: 10,
+  },
+
+  cData: {
+
     width: "90%",
     flex:0.25,
     flexDirection: 'column',
@@ -78,17 +100,9 @@ const estilos = StyleSheet.create({
     alignItems: 'flex-start',
   },
 
-  cData: {
-    width: "90%",
-    flex:0.15,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-  },
-
   cImagem: {
     width: "90%",
-    flex:0.30,
+    flex:0.40,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'flex-start',
@@ -96,11 +110,10 @@ const estilos = StyleSheet.create({
 
   cBotao: {
     width: "90%",
-    flex:0.30,
+    flex:0.15,
     flexDirection: 'column',
     justifyContent: 'flex-end',
     alignItems: 'baseline',
-    paddingBottom: 10
   },
 
   cInputData: {
@@ -112,52 +125,60 @@ const estilos = StyleSheet.create({
   },
   iconCalendario:{
     color: 'gray',
-    paddingRight: 10
   },
 
   inputTextData:{
     paddingLeft:20,
     width: "90%",
-    fontSize: 20,
+    fontSize: 10,
     fontFamily: 'AveriaLibre-Regular',
   },
 
   inputText: {
     paddingLeft:10,
     width: "100%",
-    fontSize: 20,
+    fontSize: 5,
     fontFamily: 'AveriaLibre-Regular',
     backgroundColor: 'white'
   },
 
   inputImagem: {
-    width: "80%",
-    fontSize: 20,
+    width: "40%",
+    fontSize: 18,
     fontFamily: 'AveriaLibre-Regular',
     backgroundColor: 'white',
-    height: "50%",
-    textAlign: 'center'
+    height: "70%",
+    textAlign: 'center',
   },
 
 
   botao: {
-    padding: 10,
+    height: "100%",
     backgroundColor: '#37BD6D',
     width:"100%",
-    alignItems: 'center'
+    textAlignVertical: 'center',
+    textAlign: 'center',
   },  
 
   textoPadrao:{
-    fontSize: 30,
+    fontSize: 15,
     color: "white",
     fontFamily: 'AveriaLibre-Regular',
-    textAlign: 'center'
+
   },
   textoValidacao:{
-    fontSize: 20,
+    fontSize: 15,
     color: "#FD7979",
     fontFamily: 'AveriaLibre-Regular',
   },
+  textoBotaoCadastrar:{
+    fontSize: 15,
+    color: "white",
+    fontFamily: 'AveriaLibre-Regular',
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    height: "100%"    
+  }
 
 
 })

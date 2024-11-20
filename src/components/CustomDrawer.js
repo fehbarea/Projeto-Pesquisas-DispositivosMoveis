@@ -82,7 +82,7 @@ const estilo = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'flex-start',
         alignItems: 'center',
-        paddingTop: '180%'
+        paddingTop: '40%'
         
     },
 
