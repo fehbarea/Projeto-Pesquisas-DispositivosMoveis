@@ -10,6 +10,7 @@ import AcoesDePesquisa from "./src/screens/AcoesDePesquisa.js";
 import RecuperaraSenha from "./src/screens/recuperarSenha.js";
 import Login from "./src/screens/Login.js"
 import NovaConta from "./src/screens/NovaConta.js"
+import AgradecimentoParticipacao from "./src/screens/AgradecimentoParticipacao.js"
 
 const Stack = createStackNavigator();
 
@@ -17,7 +18,8 @@ const App = () =>{
   return(
     <NavigationContainer>
       <Stack.Navigator  screenOptions={{ headerShown: true, headerTintColor: 'blue', headerTitleStyle:{color:"white"} , headerStyle: {backgroundColor: "#2B1D62"}  }}>
-      <Stack.Screen name="Nova Conta" component={NovaConta} />
+      <Stack.Screen name="NovaConta" component={AgradecimentoParticipacao} />
+      <Stack.Screen name="Coleta" component={Coleta} />
       </Stack.Navigator>
     </NavigationContainer>
   )
