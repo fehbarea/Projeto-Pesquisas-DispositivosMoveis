@@ -1,12 +1,10 @@
 //Importação
 
-import { View, Text, Image, StyleSheet, TouchableOpacity, TextInput } from "react-native";
-import { useState } from "react";
-import Icon from "react-native-vector-icons/MaterialIcons"
+import { View, Text, Image, StyleSheet } from "react-native";
 
 //Definição
 
-const AcoesDePesquisa = (props) => {
+const Relatorio = (props) => {
 
 
     return (
@@ -19,25 +17,26 @@ const AcoesDePesquisa = (props) => {
             <View style={estilos.containerLegenda}>
             <View style={estilos.legenda}>
                 <View style={[estilos.bloquinho, {backgroundColor: '#F1CE7E'}]} />
-                <Text style={estilos.textoBotao}>Excelente</Text>
+                <Text style={estilos.texto}>Excelente</Text>
             </View>
             <View style={estilos.legenda}>
                 <View style={[estilos.bloquinho, {backgroundColor: '#6994FE'}]} />
-                <Text style={estilos.textoBotao}>Bom</Text>
+                <Text style={estilos.texto}>Bom</Text>
             </View>
             <View style={estilos.legenda}>
                 <View style={[estilos.bloquinho, {backgroundColor: '#5FCDA4'}]} />
-                <Text style={estilos.textoBotao}>Neutro</Text>
+                <Text style={estilos.texto}>Neutro</Text>
             </View>
             <View style={estilos.legenda}>
                 <View style={[estilos.bloquinho, {backgroundColor: '#EA7288'}]} />
-                <Text style={estilos.textoBotao}>Ruim</Text>
+                <Text style={estilos.texto}>Ruim</Text>
             </View>
             <View style={estilos.legenda}>
                 <View style={[estilos.bloquinho, {backgroundColor: '#53D8D8'}]} />
-                <Text style={estilos.textoBotao}>Excelente</Text>
+                <Text style={estilos.texto}>Excelente</Text>
             </View>
             </View>
+
         </View>
     );
 }
@@ -63,19 +62,19 @@ const estilos = StyleSheet.create({
         width: "100%", 
        
     },
+    legenda:{
+        flexDirection: 'row',
+        gap: '5%'
+    },
     bloquinho:{
         width: 25,
         height: 25
     },
-    textoBotao:{
+    texto:{
         color: 'white',
         textAlign: 'center',
         fontSize: 20,
         fontFamily: 'AveriaLibre-Regular'
-    },
-    legenda:{
-        flexDirection: 'row',
-        gap: '5%'
     },
      containerLegenda:{
         flexDirection:'column',
@@ -87,4 +86,4 @@ const estilos = StyleSheet.create({
 
 //Exportação
 
-export default AcoesDePesquisa;
+export default Relatorio;

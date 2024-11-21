@@ -5,7 +5,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 
 //Definição
 
-const AcoesDePesquisa = (props) => {
+const RecuperarSenha = (props) => {
 
     const [txtEmail, setEmail] = useState('');
 
@@ -103,4 +103,4 @@ const estilos = StyleSheet.create({
 
 //Exportação
 
-export default AcoesDePesquisa;
+export default RecuperarSenha;

@@ -10,7 +10,7 @@ import Coleta from "./src/screens/Coleta.js";
 import AgradecimentoParticipacao from "./src/screens/AgradecimentoParticipacao.js";
 import Relatorio from "./src/screens/Relatorio.js";
 import NovaConta from "./src/screens/NovaConta.js";
-import RecuperarSenha from "./src/screens/recuperarSenha.js";
+import RecuperarSenha from "./src/screens/RecuperarSenha.js";
 
 const Stack = createStackNavigator();
 

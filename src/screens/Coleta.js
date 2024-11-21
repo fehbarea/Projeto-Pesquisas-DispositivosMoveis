@@ -6,7 +6,7 @@ import Icon from "react-native-vector-icons/MaterialIcons"
 
 //Definição
 
-const AcoesDePesquisa = (props) => {
+const Coleta= (props) => {
 
     const navigateScreen = ()=>{
         props.navigation.navigate("AgradecimentoParticipacao");
@@ -88,4 +88,4 @@ const estilos = StyleSheet.create({
 
 //Exportação
 
-export default AcoesDePesquisa;
+export default Coleta;
