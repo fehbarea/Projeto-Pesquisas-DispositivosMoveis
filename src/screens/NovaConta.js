@@ -22,10 +22,10 @@ const AcoesDePesquisa = (props) => {
         let senhaInvalida = verificaSenha(txtSenha, txtRepetirSenha)
        emailInvalido ? setMsgErrorEmail('E-mail inválido.') : setMsgErrorEmail('');
        senhaInvalida ? setMsgErrorSenha('O campo repetir senha difere da senha') : setMsgErrorSenha('');
-        if(emailInvalido || senhaInvalida){
-            return;
+        if(!emailInvalido && !senhaInvalida){
+            props.navigation.push("Login");
         }
-        //props...
+        
     }
 
     const verificaEmail = (email) =>{
@@ -61,7 +61,7 @@ const AcoesDePesquisa = (props) => {
             </View> */}
             <View >
                 <TouchableOpacity onPress={navigateToLogin} style={estilos.botao}>
-                    <Text style={estilos.textoBotao}>Cadastrar</Text>
+                    <Text style={estilos.textoBotao}>CADASTRAR</Text>
                 </TouchableOpacity>
             </View>
             </View> 

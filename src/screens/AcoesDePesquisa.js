@@ -1,7 +1,6 @@
 //Importação
 
 import { View, Text, Image, StyleSheet, TouchableOpacity, TextInput } from "react-native";
-import { useState } from "react";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 
 //Definição
@@ -9,15 +8,15 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 const AcoesDePesquisa = (props) => {
 
     const navigateScreenModificar = ()=>{
-    
+        props.navigation.push("ModificarPesquisa");
     }
 
     const navigateScreenColetaDedos= ()=>{
-    
+        props.navigation.push("Coleta");
     }
 
     const navigateScreenRelatorio = ()=>{
-    
+        props.navigation.push("Relatorio");
     }
 
     return (

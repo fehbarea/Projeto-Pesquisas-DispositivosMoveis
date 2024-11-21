@@ -13,7 +13,11 @@ const Home = (props) => {
   const [txtBusca, setBusca] = useState("");
 
   const novaPesquisa = () => {
-    //props.navigation.goBack();
+    props.navigation.push("NovaPesquisa");
+  }
+
+  const selecionarPesquisa = () =>{
+    props.navigation.push("AcoesDePesquisa");
   }
 
   return(
@@ -25,9 +29,17 @@ const Home = (props) => {
       </View>
 
       <View style={estilos.cPesquisas}>
-        <Card imgSource={require("../imgs/notebook-mobile.png")} titulo="SECOMP 2023" data="10/10/2023"/>
-        <Card imgSource={require("../imgs/people.png")}  titulo="UBUNTU 2022" data="05/06/2022"/>
-        <Card imgSource={require("../imgs/red-women.png")}  titulo="MEMINAS CPU" data="01/04/2022"/>
+        <TouchableOpacity style={estilos.cardPesquisa} onPress={selecionarPesquisa}>
+          <Card imgSource={require("../imgs/notebook-mobile.png")} titulo="SECOMP 2023" data="10/10/2023"/>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={estilos.cardPesquisa} onPress={selecionarPesquisa}>
+          <Card imgSource={require("../imgs/people.png")}  titulo="UBUNTU 2022" data="05/06/2022"/>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={estilos.cardPesquisa} onPress={selecionarPesquisa}>
+          <Card imgSource={require("../imgs/red-women.png")}  titulo="MEMINAS CPU" data="01/04/2022"/>
+        </TouchableOpacity>
       </View>
 
 
@@ -106,7 +118,10 @@ const estilos = StyleSheet.create({
     textAlign: 'center',
     textAlignVertical: 'center',
     height: "100%"   
-},
+  },
+  cardPesquisa:{
+    width: "30%",
+  }
 
 
 })

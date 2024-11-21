@@ -9,7 +9,7 @@ import {
   } from '@react-navigation/native';
 //Definição
 
-const AcoesDePesquisa = () => {
+const AcoesDePesquisa = (props) => {
     const navigation = useNavigation();
 
     React.useEffect(() => {
@@ -18,7 +18,7 @@ const AcoesDePesquisa = () => {
         })
     });
     const navigateToColeta = () => {
-        navigation.navigate('Coleta')
+        props.navigation.navigate("Coleta");
     }
 
     return (

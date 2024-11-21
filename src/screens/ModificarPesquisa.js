@@ -1,6 +1,6 @@
 //Importação
 
-import {View, Text, Image, StyleSheet, TouchableOpacity,TextInput} from "react-native";
+import {View, Text, Image, StyleSheet, TouchableOpacity,TextInput, Modal} from "react-native";
 import {useState} from "react";
 import Card from "../components/Card";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
@@ -8,66 +8,167 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 
 //Definição
 
-const ModificarPesquisa = () => {
+const ModificarPesquisa = (props) => {
 
   const [txtNome, setNome] = useState("Carnaval 2024");
   const [txtData, setData] = useState("16/02/2024");
+  const [isPopUpVisible,setIsPopUpVisibile] = useState(false);
 
 
   const salvar = () => {
-
-    //txtNome == "" ? setErroNome("Preencha o nome da pesquisa") : setErroNome("")
-    //txtData == "" ? setErroData("Preencha a data") : setErroData("")
-
+    setIsPopUpVisibile(false);
+    props.navigation.goBack();
   }
 
   const apagar = () => {
-    console.log("clicou em apagar");
+    setIsPopUpVisibile(true);
+  }
+
+  const popUpSim = () =>{
+    setIsPopUpVisibile(false);
+    props.navigation.push("Drawer");
+  }
+
+  const popUpCancelar = () => {
+    setIsPopUpVisibile(false);
   }
 
   return(
-    <View style={estilos.view}>
+    <View style={estilosTela.view}>
 
-      <View style={estilos.cNome}>
-        <Text style={estilos.textoPadrao}>Nome</Text>
-        <TextInput style={estilos.inputText} label='Nome' value={txtNome} onChangeText={setNome} />
+      <View style={estilosTela.cNome}>
+        <Text style={estilosTela.textoPadrao}>Nome</Text>
+        <TextInput style={estilosTela.inputText} label='Nome' value={txtNome} onChangeText={setNome} />
       </View>
 
-      <View style={estilos.cData}>
-        <Text style={estilos.textoPadrao}>Data</Text>
+      <View style={estilosTela.cData}>
+        <Text style={estilosTela.textoPadrao}>Data</Text>
 
-        <View style={estilos.cInputData}>
-          <TextInput style={estilos.inputTextData} label='Data' value={txtData} onChangeText={setData} />
-          <Icon name='calendar-month-outline' size={40} style={estilos.iconCalendario}/>
+        <View style={estilosTela.cInputData}>
+          <TextInput style={estilosTela.inputTextData} label='Data' value={txtData} onChangeText={setData} />
+          <Icon name='calendar-month-outline' size={40} style={estilosTela.iconCalendario}/>
         </View>      
       </View>
 
-      <View style={estilos.cImagem}>
-        <Text style={estilos.textoPadrao}>Imagem</Text>
-        <View style={estilos.cRespostaImagem}>
-          <Image style={estilos.imagem} resizeMode="contain" source={require("../imgs/party.png")} />
+      <View style={estilosTela.cImagem}>
+        <Text style={estilosTela.textoPadrao}>Imagem</Text>
+        <View style={estilosTela.cRespostaImagem}>
+          <Image style={estilosTela.imagem} resizeMode="contain" source={require("../imgs/party.png")} />
         </View>
       </View>
 
-      <View style={estilos.cBotao}>
-        <TouchableOpacity style={estilos.botao} onPress={salvar}>
-          <Text style={estilos.textoPadrao}>Salvar</Text>
+      <View style={estilosTela.cBotao}>
+        <TouchableOpacity style={estilosTela.botao} onPress={salvar}>
+          <Text style={estilosTela.textoPadrao}>Salvar</Text>
         </TouchableOpacity>
 
-        <View style={estilos.cIconeApagar} >
+        <View style={estilosTela.cIconeApagar} >
           <TouchableOpacity onPress={apagar}>
-            <Icon name='trash-can-outline' size={40} style={estilos.iconApagar}/>
+            <Icon name='trash-can-outline' size={40} style={estilosTela.iconApagar}/>
           </TouchableOpacity>
-          <Text style={estilos.textoIconeApagar}>Apagar</Text>
+          <Text style={estilosTela.textoIconeApagar}>Apagar</Text>
 
         </View>
       </View>
       
+      <Modal visible={isPopUpVisible} transparent={true}>
+        <View style={estilosPopUp.view}>
+          <View style={estilosPopUp.view2}>
+
+            <View style={estilosPopUp.cTexto}>
+              <Text style={estilosPopUp.texto}>Tem certeza de apagar essa pesquisa?</Text>
+            </View>
+
+            <View style={estilosPopUp.cBotoes}>
+
+              <View style={estilosPopUp.cBotaoSim}>
+                <TouchableOpacity style={estilosPopUp.btSim} onPress={popUpSim}>
+                  <Text style={estilosPopUp.texto}>SIM</Text>
+                </TouchableOpacity> 
+              </View>
+
+              <View style={estilosPopUp.cBotaoCancelar}>
+                <TouchableOpacity style={estilosPopUp.btCancelar} onPress={popUpCancelar}>
+                  <Text style={estilosPopUp.texto}>CANCELAR</Text>
+                </TouchableOpacity>
+              </View>
+
+            </View>
+          </View>
+        </View>
+
+      </Modal>
     </View>
   );
 }
 
-const estilos = StyleSheet.create({
+const estilosPopUp = StyleSheet.create({
+  view:{
+    flex:1,
+    flexDirection: "column",
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  view2:{
+    height: "40%",
+    borderWidth: 1,       
+    borderColor: 'black',
+  },
+  cTexto:{
+    padding: 10,
+    backgroundColor:"#372775",
+    flex:0.5,
+    flexDirection: "column",
+    justifyContent: 'center',
+    alignItems: "center",
+  },
+  cBotoes:{
+    flex:0.5,
+    backgroundColor:"#372775",
+    flexDirection: "row",
+    justifyContent: 'space-between',
+  },
+
+  cBotaoSim:{
+    flex:0.5,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  btSim:{
+    height: "60%",
+    backgroundColor: '#FF8383',
+    width:"70%",
+    textAlignVertical: 'center',
+    textAlign: 'center',
+  },
+  cBotaoCancelar:{
+    flex:0.5,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+
+
+  btCancelar:{
+    height: "60%",
+    backgroundColor: '#3F92C5',
+    width:"70%",
+    textAlignVertical: 'center',
+    textAlign: 'center',
+  },
+  texto:{
+    fontSize: 15,
+    color: "white",
+    fontFamily: 'AveriaLibre-Regular',
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    height: "100%"
+  }
+
+});
+
+const estilosTela = StyleSheet.create({
 
   view: {
     paddingLeft: "10%",
@@ -146,6 +247,7 @@ const estilos = StyleSheet.create({
 
   },
   inputTextData:{
+    color: "#3F92C5",
     flex:0.92,
     paddingLeft:10,
     width: "80%",
@@ -154,6 +256,7 @@ const estilos = StyleSheet.create({
   },
 
   inputText: {
+    color: "#3F92C5",
     paddingLeft:10,
     width: "100%",
     fontSize: 15,

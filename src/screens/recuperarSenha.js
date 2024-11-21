@@ -14,10 +14,10 @@ const AcoesDePesquisa = (props) => {
     const navigateToLogin = () => {
         let emailInvalido = verificaEmail(txtEmail);
        emailInvalido ? setMsgError('E-mail parece ser inválido') : setMsgError('');
-        if(emailInvalido){
-            return;
+        if(!emailInvalido){
+            props.navigation.push("Login");
         }
-        //props...
+
     }
 
     const verificaEmail = (email) =>{

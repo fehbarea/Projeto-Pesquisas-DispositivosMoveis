@@ -7,11 +7,11 @@ import { DrawerContentScrollView} from '@react-navigation/drawer';
 const CustomDrawer = (props) =>{
 
     const goToPesquisas = () =>{
-        props.navigation.navigate('Home')
+        props.navigation.push("Drawer");
     }
 
     const logout = () =>{
-        props.navigation.navigate('Login')
+        props.navigation.popToTop();
     }
 
     return(

@@ -9,7 +9,7 @@ import Icon from "react-native-vector-icons/MaterialIcons"
 const AcoesDePesquisa = (props) => {
 
     const navigateScreen = ()=>{
-    
+        props.navigation.navigate("AgradecimentoParticipacao");
     }
 
 

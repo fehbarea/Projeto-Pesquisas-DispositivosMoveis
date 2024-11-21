@@ -14,13 +14,16 @@ const NovaPesquisa = (props) => {
   const [txtData, setData] = useState("");
   const [txtImagem, setImagem] = useState("");
 
-  const[txtErroNome,setErroNome] = useState("Preencha o nome da pesquisa");
-  const[txtErroData,setErroData] = useState("Preencha a data");
+  const[txtErroNome,setErroNome] = useState("");
+  const[txtErroData,setErroData] = useState("");
 
   const cadastrar = () => {
 
-    txtNome == "" ? setErroNome("Preencha o nome da pesquisa") : setErroNome("")
-    txtData == "" ? setErroData("Preencha a data") : setErroData("")
+    txtNome == "" ? setErroNome("Preencha o nome da pesquisa") : setErroNome("");
+    txtData == "" ? setErroData("Preencha a data") : setErroData("");
+    if(txtErroNome == "" && txtErroData == ""){
+      props.navigation.push("Drawer");
+    }
 
   }
 
@@ -73,16 +76,13 @@ const estilos = StyleSheet.create({
     backgroundColor:"#372775"
   },
   view2: {
-    
     flex: 1,
     width: "80%",
     flexDirection: "column",
     justifyContent: 'space-between',
     
   },
-  
   cNome: {
-
     width: "90%",
     flex:0.20,
     flexDirection: 'column',
@@ -92,7 +92,6 @@ const estilos = StyleSheet.create({
   },
 
   cData: {
-
     width: "90%",
     flex:0.25,
     flexDirection: 'column',
@@ -128,16 +127,21 @@ const estilos = StyleSheet.create({
   },
 
   inputTextData:{
-    paddingLeft:20,
+    paddingLeft:0,
+    paddingTop:0,
+    paddingBottom: 0,
     width: "90%",
-    fontSize: 10,
+    fontSize: 20,
     fontFamily: 'AveriaLibre-Regular',
   },
 
   inputText: {
-    paddingLeft:10,
+    height: "50%",
+    paddingTop:0,
+    paddingBottom: 0,
+    paddingLeft:15,
     width: "100%",
-    fontSize: 5,
+    fontSize: 20,
     fontFamily: 'AveriaLibre-Regular',
     backgroundColor: 'white'
   },

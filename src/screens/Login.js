@@ -16,8 +16,8 @@ const AcoesDePesquisa = (props) => {
     const navigateToLogin = () => {
         let emailInvalido = verificaEmail(txtEmail);
        emailInvalido ? setMsgError('E-mail e/ou senha inválidos.') : setMsgError('');
-        if(emailInvalido){
-            return;
+        if(!emailInvalido){
+            props.navigation.navigate("Drawer");
         }
         //props...
     }
@@ -26,6 +26,14 @@ const AcoesDePesquisa = (props) => {
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         let valid = emailPattern.test(email);
         return !valid;
+    }
+
+    const navigateNovaConta = () =>{
+        props.navigation.push("NovaConta");
+    }
+
+    const navigateRecuperarSenha = () =>{
+        props.navigation.push("RecuperarSenha");
     }
 
     return (
@@ -58,10 +66,10 @@ const AcoesDePesquisa = (props) => {
                 </View>
 
                 <View style={estilos.containerBotoesBottom}>
-                    <TouchableOpacity onPress={navigateToLogin} style={estilos.botaoBottom}>
+                    <TouchableOpacity onPress={navigateNovaConta} style={estilos.botaoBottom}>
                         <Text style={[estilos.textoBotao, estilos.botaoAzul]}>Criar minha conta</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={navigateToLogin} style={estilos.botaoBottom}>
+                    <TouchableOpacity onPress={navigateRecuperarSenha} style={estilos.botaoBottom}>
                         <Text style={[estilos.textoBotao, estilos.botaoCinza]}>Esqueci minha senha</Text>
                     </TouchableOpacity>
                 </View>

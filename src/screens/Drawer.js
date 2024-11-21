@@ -21,7 +21,7 @@ const Drawer = () =>{
                 headerTintColor: 'white',
                 headerTitle: ''
         }}>
-            <DrawerNavigator.Screen name="Home" component={Home}/>
+            <DrawerNavigator.Screen name="Home" component={Home} />
         </DrawerNavigator.Navigator>
     )
 
