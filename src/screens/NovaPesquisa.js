@@ -18,10 +18,10 @@ const NovaPesquisa = (props) => {
   const[txtErroData,setErroData] = useState("");
 
   const cadastrar = () => {
-
+    let invalido = txtNome == "" || txtData == "";
     txtNome == "" ? setErroNome("Preencha o nome da pesquisa") : setErroNome("");
     txtData == "" ? setErroData("Preencha a data") : setErroData("");
-    if(txtErroNome == "" && txtErroData == ""){
+    if(!invalido){
       props.navigation.push("Drawer");
     }
 
