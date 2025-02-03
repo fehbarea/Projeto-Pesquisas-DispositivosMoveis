@@ -1,7 +1,8 @@
-
+import { auth_mod } from '../firebase/config.js'
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, Image, SafeAreaView } from "react-native";
 import { useState } from "react";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
+import { createUserWithEmailAndPassword } from 'firebase/auth'
 
 //Definição
 
@@ -17,13 +18,21 @@ const AcoesDePesquisa = (props) => {
 
     const [msgErrorSenha, setMsgErrorSenha] = useState('')
 
-    const navigateToLogin = () => {
+    const createUser = () => {
         let emailInvalido = verificaEmail(txtEmail);
         let senhaInvalida = verificaSenha(txtSenha, txtRepetirSenha)
        emailInvalido ? setMsgErrorEmail('E-mail inválido.') : setMsgErrorEmail('');
        senhaInvalida ? setMsgErrorSenha('O campo repetir senha difere da senha') : setMsgErrorSenha('');
         if(!emailInvalido && !senhaInvalida){
-            props.navigation.push("Login");
+            console.log(auth_mod)
+            createUserWithEmailAndPassword(auth_mod, txtEmail, txtSenha)
+                .then((user) => {
+                    console.log("sucesso: " +JSON.stringify(user));
+                    props.navigation.push("Login");
+                })
+                .catch((error) => {
+                    console.log('erro: ' + error);
+                })
         }
         
     }
@@ -60,7 +69,7 @@ const AcoesDePesquisa = (props) => {
                 </TouchableOpacity>
             </View> */}
             <View >
-                <TouchableOpacity onPress={navigateToLogin} style={estilos.botao}>
+                <TouchableOpacity onPress={createUser} style={estilos.botao}>
                     <Text style={estilos.textoBotao}>CADASTRAR</Text>
                 </TouchableOpacity>
             </View>

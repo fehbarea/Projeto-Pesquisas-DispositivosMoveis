@@ -2,8 +2,8 @@
 import { View, Text, StyleSheet, TouchableOpacity, TextInput } from "react-native";
 import { useState } from "react";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
-
-//Definição
+import { sendPasswordResetEmail } from 'firebase/auth'
+import { auth_mod } from '../firebase/config.js'
 
 const RecuperarSenha = (props) => {
 
@@ -11,16 +11,23 @@ const RecuperarSenha = (props) => {
 
     const [msgError, setMsgError] = useState('')
 
-    const navigateToLogin = () => {
+    const recoverPassword = () => {
         let emailInvalido = verificaEmail(txtEmail);
-       emailInvalido ? setMsgError('E-mail parece ser inválido') : setMsgError('');
-        if(!emailInvalido){
-            props.navigation.push("Login");
+        emailInvalido ? setMsgError('E-mail parece ser inválido') : setMsgError('');
+        if (!emailInvalido) {
+            sendPasswordResetEmail(auth_mod, txtEmail).then(
+                () => {
+                    console.log('sucesso');
+                    props.navigation.push("Login");
+                }).catch(
+                    (error) => console.log(JSON.stringify(error)
+                    ));
+
         }
 
     }
 
-    const verificaEmail = (email) =>{
+    const verificaEmail = (email) => {
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         let valid = emailPattern.test(email);
         return !valid;
@@ -29,19 +36,19 @@ const RecuperarSenha = (props) => {
     return (
         <View style={estilos.view}>
 
-                <View style={estilos.ContainerEmail}>
-                    <Text style={estilos.labelEmail}>E-mail</Text>
-                    <TextInput style={estilos.textInput} value={txtEmail} onChangeText={setEmail}/>
-                    <Text  style={estilos.textWarn}>{msgError}</Text>
-                </View> 
+            <View style={estilos.ContainerEmail}>
+                <Text style={estilos.labelEmail}>E-mail</Text>
+                <TextInput style={estilos.textInput} value={txtEmail} onChangeText={setEmail} />
+                <Text style={estilos.textWarn}>{msgError}</Text>
+            </View>
 
-                <View style={estilos.containerBotoes}>
-                    <TouchableOpacity onPress={navigateToLogin} style={estilos.botao}>
-                        <Text style={estilos.textoBotao}>RECUPERAR</Text>
-                    </TouchableOpacity>
+            <View style={estilos.containerBotoes}>
+                <TouchableOpacity onPress={recoverPassword} style={estilos.botao}>
+                    <Text style={estilos.textoBotao}>RECUPERAR</Text>
+                </TouchableOpacity>
 
-                </View>
-            
+            </View>
+
 
         </View>
     );
@@ -49,19 +56,19 @@ const RecuperarSenha = (props) => {
 
 const estilos = StyleSheet.create({
     view: {
-        flex:1,
+        flex: 1,
         backgroundColor: '#372775',
-        paddingLeft:'15%',
+        paddingLeft: '15%',
         paddingRight: '15%',
         alignItems: 'center',
         justifyContent: 'center',
     },
     containerBotoes: {
-        flex:0.3,
+        flex: 0.3,
         flexDirection: "column",
         width: '100%',
         justifyContent: 'flex-end',
-        paddingBottom:30
+        paddingBottom: 30
     },
     botao: {
         gap: 2,
@@ -80,21 +87,21 @@ const estilos = StyleSheet.create({
         backgroundColor: '#ffffff',
         width: "100%",
         fontSize: 20,
-        textAlignVertical: 'center', 
+        textAlignVertical: 'center',
         color: '#3F92C5'
     },
     ContainerEmail: {
-        flex:0.7,
+        flex: 0.7,
         width: '100%',
         justifyContent: 'flex-end',
-        gap:5
+        gap: 5
     },
     labelEmail: {
         color: "#FFFFFF",
         fontSize: 20,
         fontFamily: 'AveriaLibre-Regular'
     },
-    textWarn:{
+    textWarn: {
         color: "#FD7979",
         fontSize: 15,
     }
