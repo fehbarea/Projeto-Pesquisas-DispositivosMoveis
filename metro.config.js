@@ -6,6 +6,7 @@ const {getDefaultConfig, mergeConfig, wrapWithReanimatedMetroConfig} = require('
  *
  * @type {import('metro-config').MetroConfig}
  */
-const config = {};
+const config = {
+};
 
 module.exports = mergeConfig(getDefaultConfig(__dirname), config);
