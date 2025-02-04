@@ -5,8 +5,11 @@ import {useState} from "react";
 
 import Card from "../components/Card";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
-import { launchImageLibrary } from "react-native-image-picker";
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import ImageResizer from "react-native-image-resizer";
+import { Alert } from 'react-native';
+import { PermissionsAndroid } from 'react-native';
+import { obterImagem } from "../utils/utils.js";
 
 import { app, auth_mod } from '../firebase/config'
 import { initializeFirestore, collection, addDoc } from 'firebase/firestore';
@@ -95,9 +98,11 @@ const NovaPesquisa = (props) => {
 
 
         <View style={estilos.cImagem}>
-          <Pressable style={({ pressed }) => [estilos.inputImagem, { transform: [{ scale: pressed ? 0.95 : 1 }] }, ]} onPress={obterImagem}>
+          <Pressable style={({ pressed }) => [estilos.inputImagem, { transform: [{ scale: pressed ? 0.95 : 1 }] }, ]} onPress={() => obterImagem(setImagem)}>
             <Text style={estilos.textoImagem}>Câmera/Galeria de imagens</Text>
           </Pressable>
+          <Image source={{uri:imagem}} style={estilos.imagemSelecionada} resizeMode="contain"/>
+        </View>
          </View>
 
 
@@ -113,7 +118,10 @@ const NovaPesquisa = (props) => {
 }
 
 const estilos = StyleSheet.create({
-
+  imagemSelecionada:{
+    height:'90%',
+    width: "30%"
+  },
   view: {
     flex: 1,
     flexDirection: "column",
@@ -149,6 +157,10 @@ const estilos = StyleSheet.create({
 
   cImagem: {
     width: "90%",
+    flex:0.40,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
     flex: 0.40,
     flexDirection: 'column',
     justifyContent: 'center',

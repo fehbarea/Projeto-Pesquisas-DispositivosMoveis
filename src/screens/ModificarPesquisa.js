@@ -1,10 +1,10 @@
 //Importação
 
-import {View, Text, Image, StyleSheet, TouchableOpacity,TextInput, Modal} from "react-native";
+import {View, Text, Image, StyleSheet, TouchableOpacity,TextInput, Modal, Pressable} from "react-native";
 import {useState} from "react";
-import Card from "../components/Card";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 import { updateDoc, deleteDoc } from 'firebase/firestore';
+import { obterImagem } from "../utils/utils.js";
 
 //Definição
 
@@ -14,6 +14,8 @@ const ModificarPesquisa = (props) => {
   const [txtData, setData] = useState("16/02/2024");
   const [isPopUpVisible,setIsPopUpVisibile] = useState(false);
   const referenciaDoc = props.params;
+  const [imagem, setImagem] = useState("");
+
 
   const salvar = () => {
     setIsPopUpVisibile(false);
@@ -58,9 +60,16 @@ const ModificarPesquisa = (props) => {
 
       <View style={estilosTela.cImagem}>
         <Text style={estilosTela.textoPadrao}>Imagem</Text>
+
         <View style={estilosTela.cRespostaImagem}>
-          <Image style={estilosTela.imagem} resizeMode="contain" source={require("../imgs/party.png")} />
+          <Pressable style={({ pressed }) => [estilosTela.inputImagem, { transform: [{ scale: pressed ? 0.95 : 1 }] },]} onPress={() => obterImagem(setImagem)}>
+            <Image source={{ uri: imagem }} style={estilosTela.imagemSelecionada} resizeMode="contain" />
+          </Pressable>
+
         </View>
+
+
+
       </View>
 
       <View style={estilosTela.cBotao}>
@@ -175,7 +184,16 @@ const estilosPopUp = StyleSheet.create({
 });
 
 const estilosTela = StyleSheet.create({
-
+  inputImagem: {
+    width: "100%",
+    height: "100%",
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  imagemSelecionada:{
+    height:'100%',
+    width: "30%"
+  },
   view: {
     paddingLeft: "10%",
     flex: 1,
@@ -229,7 +247,7 @@ const estilosTela = StyleSheet.create({
 
   cRespostaImagem:{
     backgroundColor: 'white',
-    width: "80%",
+    width: "60%",
     flex:1,
     flexDirection: 'row',
     justifyContent: 'center',
