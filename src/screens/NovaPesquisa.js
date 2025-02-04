@@ -1,7 +1,7 @@
 //Importação
 
-import {View, Text, Image, StyleSheet, TouchableOpacity,TextInput, Pressable} from "react-native";
-import {useState} from "react";
+import { View, Text, Image, StyleSheet, TouchableOpacity, TextInput, Pressable } from "react-native";
+import { useState } from "react";
 
 import Card from "../components/Card";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
@@ -67,10 +67,10 @@ const NovaPesquisa = (props) => {
   }
 
 
-  const obterImagem = () =>{
-    launchImageLibrary({mediaType: "photo"},(result) => {
-      if(result.assets && result.assets.length > 0){
-      convertUriToBase64(result.assets[0].uri);
+  const obterImagem = () => {
+    launchImageLibrary({ mediaType: "photo" }, (result) => {
+      if (result.assets && result.assets.length > 0) {
+        convertUriToBase64(result.assets[0].uri);
       }
     })
   }
@@ -87,39 +87,35 @@ const NovaPesquisa = (props) => {
 
         <View style={estilos.cData}>
           <Text style={estilos.textoPadrao}>Data</Text>
-
           <View style={estilos.cInputData}>
             <TextInput style={estilos.inputTextData} label='Data' value={txtData} onChangeText={setData} />
             <Icon name='calendar-month-outline' size={30} style={estilos.iconCalendario} />
           </View>
-
           <Text style={estilos.textoValidacao}>{txtErroData}</Text>
+
         </View>
-
-
         <View style={estilos.cImagem}>
-          <Pressable style={({ pressed }) => [estilos.inputImagem, { transform: [{ scale: pressed ? 0.95 : 1 }] }, ]} onPress={() => obterImagem(setImagem)}>
+          <Pressable style={({ pressed }) => [estilos.inputImagem, { transform: [{ scale: pressed ? 0.95 : 1 }] },]} onPress={() => obterImagem(setImagem)}>
             <Text style={estilos.textoImagem}>Câmera/Galeria de imagens</Text>
           </Pressable>
-          <Image source={{uri:imagem}} style={estilos.imagemSelecionada} resizeMode="contain"/>
+          <Image source={{ uri: imagem }} style={estilos.imagemSelecionada} resizeMode="contain" />
         </View>
-         </View>
-
-
-        <View style={estilos.cBotao}>
-          <TouchableOpacity style={estilos.botao} onPress={cadastrar}>
-            <Text style={estilos.textoBotaoCadastrar}>CADASTRAR</Text>
-          </TouchableOpacity>
-        </View>
-
       </View>
+
+
+      <View style={estilos.cBotao}>
+        <TouchableOpacity style={estilos.botao} onPress={cadastrar}>
+          <Text style={estilos.textoBotaoCadastrar}>CADASTRAR</Text>
+        </TouchableOpacity>
+      </View>
+
     </View>
   );
 }
 
 const estilos = StyleSheet.create({
-  imagemSelecionada:{
-    height:'90%',
+  imagemSelecionada: {
+    height: '90%',
     width: "30%"
   },
   view: {
@@ -157,7 +153,7 @@ const estilos = StyleSheet.create({
 
   cImagem: {
     width: "90%",
-    flex:0.40,
+    flex: 0.40,
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
@@ -231,7 +227,7 @@ const estilos = StyleSheet.create({
     fontFamily: 'AveriaLibre-Regular',
 
   },
-  textoImagem:{
+  textoImagem: {
     fontSize: 15,
     color: "gray",
     fontFamily: 'AveriaLibre-Regular',
