@@ -1,9 +1,11 @@
 //Importação
 
-import {View, Text, Image, StyleSheet, TouchableOpacity,TextInput} from "react-native";
+import {View, Text, Image, StyleSheet, TouchableOpacity,TextInput, Pressable} from "react-native";
 import {useState} from "react";
 import Card from "../components/Card";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
+import { launchImageLibrary } from "react-native-image-picker";
+import ImageResizer from "react-native-image-resizer";
 
 
 //Definição
@@ -12,7 +14,7 @@ const NovaPesquisa = (props) => {
 
   const [txtNome, setNome] = useState("");
   const [txtData, setData] = useState("");
-  const [txtImagem, setImagem] = useState("");
+  const [imagem, setImagem] = useState("");
 
   const[txtErroNome,setErroNome] = useState("");
   const[txtErroData,setErroData] = useState("");
@@ -25,6 +27,31 @@ const NovaPesquisa = (props) => {
       props.navigation.push("Drawer");
     }
 
+  }
+
+  const convertUriToBase64 = async (uri) => {
+    const resizedImage = await ImageResizer.createResizedImage(
+      uri,
+      700,
+      700,
+      'JPEG',
+      100
+    );
+    const imageUri = await fetch(resizedImage.uri);
+    const imagemBlob = await imageUri.blob();
+    console.log(imagemBlob);
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImagem(reader.result);
+    };
+    reader.readAsDataURL(imagemBlob);
+  }
+
+
+  const obterImagem = () =>{
+    launchImageLibrary({mediaType: "photo"},(result) => {
+      convertUriToBase64(result.assets[0].uri);
+    })
   }
 
   return(
@@ -48,10 +75,13 @@ const NovaPesquisa = (props) => {
           <Text style={estilos.textoValidacao}>{txtErroData}</Text>
         </View>
 
+
         <View style={estilos.cImagem}>
-          <Text style={estilos.textoPadrao}>Imagem</Text>
-          <TextInput style={estilos.inputImagem} label='Imagem' value={txtImagem} onChangeText={setImagem} placeholder="Câmera/Galeria de imagens"/>
+          <Pressable style={({ pressed }) => [estilos.inputImagem, { transform: [{ scale: pressed ? 0.95 : 1 }] }, ]} onPress={obterImagem}>
+            <Text style={estilos.textoImagem}>Câmera/Galeria de imagens</Text>
+          </Pressable>
         </View>
+
 
         <View style={estilos.cBotao}>
           <TouchableOpacity style={estilos.botao} onPress={cadastrar}>
@@ -153,6 +183,7 @@ const estilos = StyleSheet.create({
     backgroundColor: 'white',
     height: "70%",
     textAlign: 'center',
+    justifyContent: 'center',
   },
 
 
@@ -169,6 +200,12 @@ const estilos = StyleSheet.create({
     color: "white",
     fontFamily: 'AveriaLibre-Regular',
 
+  },
+  textoImagem:{
+    fontSize: 15,
+    color: "gray",
+    fontFamily: 'AveriaLibre-Regular',
+    textAlign: 'center'
   },
   textoValidacao:{
     fontSize: 15,
