@@ -13,7 +13,7 @@ const Card = (props)=>{
     return(
         <View style={estilos.view}>
             <View style={estilos.cImagem}>
-                <Image style={estilos.imagem} resizeMode="contain" source={imgSource} />
+                <Image style={estilos.imagem} resizeMode="contain" source={{uri:imgSource}} />
             </View>
 
             <View style={estilos.cTitulo}>
@@ -37,6 +37,7 @@ const estilos = StyleSheet.create({
         textAlign: 'center',
         borderRadius: 15,
         height: "90%",
+        width:200
     },
     cImagem:{
         padding: 5,
