@@ -7,8 +7,10 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 
 const AcoesDePesquisa = (props) => {
 
+    const referencia = props.params;
+
     const navigateScreenModificar = ()=>{
-        props.navigation.push("ModificarPesquisa");
+        props.navigation.push("ModificarPesquisa",{referencia});
     }
 
     const navigateScreenColetaDedos= ()=>{

@@ -26,6 +26,7 @@ const AcoesDePesquisa = (props) => {
                 }
             ).catch((error) => {
                 console.log('Erro: ' + JSON.stringify(error));
+                setMsgError('E-mail e/ou senha inválidos.' + error.message)
             });
         }
     }

@@ -4,8 +4,8 @@ import { View, Text, Image, StyleSheet, TouchableOpacity, TextInput, FlatList } 
 import { useState, useEffect } from "react";
 import Card from "../components/Card";
 import Icon from "react-native-vector-icons/MaterialIcons"
-import { query, onSnapshot, initializeFirestore, collection } from 'firebase/firestore';
-import { app, auth_mod } from '../firebase/config'
+import { query, onSnapshot, initializeFirestore, collection, updateDoc, doc } from 'firebase/firestore';
+import { app, auth_mod } from '../firebase/config';
 
 //Definição
 
@@ -13,17 +13,18 @@ const Home = (props) => {
 
   const [txtBusca, setBusca] = useState("");
   const [pesquisas, setPesquisa] = useState([]);
+  const db = initializeFirestore(app, { experimentalForceLongPolling: true });
+  const userCollection = collection(db, "usuarios", auth_mod.currentUser.uid, "pesquisas");
 
   const novaPesquisa = () => {
     props.navigation.push("NovaPesquisa");
   }
 
-  const selecionarPesquisa = () => {
-    props.navigation.push("AcoesDePesquisa");
+  const selecionarPesquisa = (id) => {
+      const referenciaDoc = doc(db, "usuarios", auth_mod.currentUser.uid, "pesquisas", id)
+      props.navigation.push("AcoesDePesquisa", { referencia: referenciaDoc })
+        
   }
-
-  const db = initializeFirestore(app, { experimentalForceLongPolling: true });
-  const userCollection = collection(db, "usuarios", auth_mod.currentUser.uid, "pesquisas");
 
   useEffect(() => {
     const queryPesquisas = query(userCollection);
@@ -35,6 +36,7 @@ const Home = (props) => {
       }));
       setPesquisa(p)
     })
+    return () => unsubscribe();
   }, [])
 
   return (
@@ -50,12 +52,12 @@ const Home = (props) => {
           data={pesquisas}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <TouchableOpacity key={item.id} style={estilos.cardPesquisa} onPress={selecionarPesquisa}>
+            <TouchableOpacity key={item.id} style={estilos.cardPesquisa} onPress={() => selecionarPesquisa(item.id)}>
               <Card imgSource={item.imagem} titulo={item.nome} data={item.data} />
             </TouchableOpacity>
           )}
           horizontal={true}
-          showsHorizontalScrollIndicator={true} 
+          showsHorizontalScrollIndicator={true}
           contentContainerStyle={{ flexGrow: 1, paddingHorizontal: 10 }}
           style={estilos.flatList}
         />
@@ -90,14 +92,14 @@ const estilos = StyleSheet.create({
   },
   cPesquisas: {
     flex: 0.65,
-    height:"100%"
+    height: "100%"
     // flexDirection: 'row',
     // justifyContent: 'space-between',
     // alignItems: 'center',
   },
-  flatList:{
-    paddingHorizontal: 10, 
-    paddingEnd: 20, 
+  flatList: {
+    paddingHorizontal: 10,
+    paddingEnd: 20,
   },
   cBotoes: {
     width: "90%",

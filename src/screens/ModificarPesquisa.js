@@ -4,7 +4,7 @@ import {View, Text, Image, StyleSheet, TouchableOpacity,TextInput, Modal} from "
 import {useState} from "react";
 import Card from "../components/Card";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
-
+import { updateDoc, deleteDoc } from 'firebase/firestore';
 
 //Definição
 
@@ -13,7 +13,7 @@ const ModificarPesquisa = (props) => {
   const [txtNome, setNome] = useState("Carnaval 2024");
   const [txtData, setData] = useState("16/02/2024");
   const [isPopUpVisible,setIsPopUpVisibile] = useState(false);
-
+  const referenciaDoc = props.params;
 
   const salvar = () => {
     setIsPopUpVisibile(false);
@@ -21,7 +21,13 @@ const ModificarPesquisa = (props) => {
   }
 
   const apagar = () => {
-    setIsPopUpVisibile(true);
+    deleteDoc(referenciaDoc)
+    .then(
+      () => {
+        setIsPopUpVisibile(true); 
+      }
+    )
+    
   }
 
   const popUpSim = () =>{
