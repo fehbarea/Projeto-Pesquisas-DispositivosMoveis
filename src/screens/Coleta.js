@@ -2,40 +2,104 @@
 
 import { View, Text, Image, StyleSheet, TouchableOpacity, TextInput } from "react-native";
 import { useState } from "react";
-import Icon from "react-native-vector-icons/MaterialIcons"
+import Icon from "react-native-vector-icons/MaterialIcons";
+import { getReferenciaDoc} from '../utils/firestoreUtils';
+import { updateDoc, increment} from 'firebase/firestore';
+import { useSelector } from "react-redux";
 
 //Definição
 
 const Coleta= (props) => {
 
+    const [txtNome, setNome] = useState(useSelector((state) => state.review.reviewName));
+    const [txtData, setData] = useState(useSelector((state) => state.review.reviewDate));
+    const [imagem, setImagem] = useState(useSelector((state) => state.review.reviewImg));
+    const docId = useSelector((state) => state.review.reviewId);
+
     const navigateScreen = ()=>{
         props.navigation.navigate("AgradecimentoParticipacao");
-    }
+    };
+
+    function botaoPessimo(){
+        updateDoc(getReferenciaDoc(docId),{
+            'votos.pessimo': increment(1)
+        }).then(
+            (data) => {
+                console.log("sucesso " + data)
+            }
+        ).catch(
+            (error) => console.log(JSON.stringify("erro"+error))
+        )
+    };
+    function botaoRuim(){
+        updateDoc(getReferenciaDoc(docId),{
+            'votos.ruim': increment(1)
+        }).then(
+            (data) => {
+                console.log("sucesso " + data)
+            }
+        ).catch(
+            (error) => console.log(JSON.stringify("erro"+error))
+        )
+    };
+    function botaoNeutro(){
+        updateDoc(getReferenciaDoc(docId),{
+            'votos.neutro': increment(1)
+        }).then(
+            (data) => {
+                console.log("sucesso " + data)
+            }
+        ).catch(
+            (error) => console.log(JSON.stringify("erro"+error))
+        )
+    };
+    function botaoBom(){
+        updateDoc(getReferenciaDoc(docId),{
+            'votos.bom': increment(1)
+        }).then(
+            (data) => {
+                console.log("sucesso " + data)
+            }
+        ).catch(
+            (error) => console.log(JSON.stringify("erro"+error))
+        )
+    };
+    function botaoExcelente(){
+        updateDoc(getReferenciaDoc(docId),{
+            'votos.excelente': increment(1)
+        }).then(
+            (data) => {
+                console.log("sucesso " + data)
+            }
+        ).catch(
+            (error) => console.log(JSON.stringify("erro"+error))
+        )
+    };
 
 
     return (
         <View style={estilos.view}>
             
-            <Text style={estilos.titulo}>O que você achou do Carnaval 2024?</Text>
+            <Text style={estilos.titulo}>{txtNome}</Text>
 
             <View style={estilos.containerBotoes}>
-                <TouchableOpacity onPress={navigateScreen} style={estilos.botao}>
+                <TouchableOpacity onPress={botaoPessimo} style={estilos.botao}>
                     <Icon name='sentiment-very-dissatisfied' size={60} style={[estilos.iconBotao, {color:"#D71616"}]}/>
                     <Text style={estilos.textoBotao}>Péssimo</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={navigateScreen} style={estilos.botao} >
+                <TouchableOpacity onPress={botaoRuim} style={estilos.botao} >
                 <Icon name='sentiment-dissatisfied' size={60} style={[estilos.iconBotao, {color:"#FF360A"}]}/>
                     <Text style={estilos.textoBotao}>Ruim</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={navigateScreen} style={estilos.botao} >
+                <TouchableOpacity onPress={botaoNeutro} style={estilos.botao} >
                 <Icon name='sentiment-neutral' size={60} style={[ estilos.iconBotao, {color:"#FFC632"}]}/>
                     <Text style={estilos.textoBotao}>Neutro</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={navigateScreen} style={estilos.botao} >
+                <TouchableOpacity onPress={botaoBom} style={estilos.botao} >
                 <Icon name='sentiment-satisfied-alt' size={60} style={[estilos.iconBotao , {color:"#37BD6D"}]}/>
                     <Text style={estilos.textoBotao}>Bom</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={navigateScreen} style={estilos.botao} >
+                <TouchableOpacity onPress={botaoExcelente} style={estilos.botao} >
                 <Icon name='sentiment-very-satisfied' size={60} style={[estilos.iconBotao , {color:"#25BC22"}]}/>
                     <Text style={estilos.textoBotao}>Excelente</Text>
                 </TouchableOpacity>

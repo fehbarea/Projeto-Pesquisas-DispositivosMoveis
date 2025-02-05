@@ -6,6 +6,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 import { updateDoc, deleteDoc } from 'firebase/firestore';
 import { obterImagem } from "../utils/utils.js";
 import { useSelector } from "react-redux";
+import { getReferenciaDoc} from '../utils/firestoreUtils'
 
 //Definição
 
@@ -17,13 +18,11 @@ const ModificarPesquisa = (props) => {
   const [isPopUpVisible,setIsPopUpVisibile] = useState(false);
   const [imagem, setImagem] = useState(useSelector((state) => state.review.reviewImg));
 
-  const referenciaDoc = "";
-  const data = "";
-  const imageURI = "";
+  const docId = useSelector((state) => state.review.reviewId);
 
   const salvar = () => {
 
-    updateDoc(referenciaDoc, {
+    updateDoc(getReferenciaDoc(docId), {
       nome: txtNome,
       data: txtData,
       imagem: imagem
@@ -35,7 +34,7 @@ const ModificarPesquisa = (props) => {
   }
 
   const apagar = () => {
-    deleteDoc(referenciaDoc)
+    deleteDoc(getReferenciaDoc(docId))
     .then(
       () => {
         setIsPopUpVisibile(true); 

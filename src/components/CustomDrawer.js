@@ -1,37 +1,42 @@
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { DrawerContentScrollView} from '@react-navigation/drawer';
+import { DrawerContentScrollView } from '@react-navigation/drawer';
+import { auth_mod } from '../firebase/config';
+import { signOut } from 'firebase/auth';
 
 
+const CustomDrawer = (props) => {
 
-const CustomDrawer = (props) =>{
-
-    const goToPesquisas = () =>{
+    const goToPesquisas = () => {
         props.navigation.push("Drawer");
     }
 
-    const logout = () =>{
-        props.navigation.popToTop();
+    const logout = () => {
+        signOut(auth_mod).then(() => {
+            props.navigation.popToTop()
+        }
+        )
+
     }
 
-    return(
+    return (
         <DrawerContentScrollView {...props}>
             <View style={estilo.mainDrawer}>
-                
-                <View style={estilo.cHeader}> 
+
+                <View style={estilo.cHeader}>
                     <Text style={estilo.textoEmail}>usuario@dominio.com</Text>
-                    
+
                     <View style={estilo.linha}></View>
                 </View>
-                
-                <View style={estilo.cItens}> 
+
+                <View style={estilo.cItens}>
                     <TouchableOpacity style={estilo.btPesquisa} onPress={goToPesquisas}>
-                        <Icon name='file-document-outline' size={40} color='white'/>
+                        <Icon name='file-document-outline' size={40} color='white' />
                         <Text style={estilo.textoNormal}>Pesquisas</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity style={estilo.btSair} onPress={logout}>
-                        <Icon name='logout' size={40} color='white'/>
+                        <Icon name='logout' size={40} color='white' />
                         <Text style={estilo.textoNormal}>Sair</Text>
                     </TouchableOpacity>
                 </View>
@@ -44,14 +49,14 @@ const CustomDrawer = (props) =>{
 
 const estilo = StyleSheet.create({
 
-    mainDrawer:{
+    mainDrawer: {
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'space-between',
- 
+
     },
 
-    linha:{
+    linha: {
         backgroundColor: 'white',
         width: '90%',
         height: 2,
@@ -59,17 +64,17 @@ const estilo = StyleSheet.create({
         top: 20
     },
 
-    cHeader:{
-        flex:0.2,
+    cHeader: {
+        flex: 0.2,
         flexDirection: 'column',
         justifyContent: 'center',
     },
 
-    cItens:{
-        paddingTop: 50    
+    cItens: {
+        paddingTop: 50
     },
 
-    btPesquisa:{
+    btPesquisa: {
         paddingLeft: 10,
         flexDirection: 'row',
         justifyContent: 'flex-start',
@@ -77,28 +82,28 @@ const estilo = StyleSheet.create({
 
     },
 
-    btSair:{
+    btSair: {
         paddingLeft: 10,
         flexDirection: 'row',
         justifyContent: 'flex-start',
         alignItems: 'center',
         paddingTop: '40%'
-        
+
     },
 
-    textoEmail:{
+    textoEmail: {
         color: 'white',
         fontFamily: 'AveriaLibre-Regular',
         fontSize: 30,
         alignSelf: 'center'
     },
-    textoNormal:{
+    textoNormal: {
         color: 'white',
-        fontFamily:'AveriaLibre-Regular',
+        fontFamily: 'AveriaLibre-Regular',
         fontSize: 30,
         left: 10
     },
-    
+
 
 })
 

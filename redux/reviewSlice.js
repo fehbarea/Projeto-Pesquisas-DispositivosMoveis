@@ -5,7 +5,6 @@ const initialValues = {
     reviewName: null,
     reviewDate: null,
     reviewImg: null,
-    reviewRef
 
 }
 
@@ -18,7 +17,6 @@ export const reviewSlice = createSlice({
             state.reviewName = action.payload.reviewName
             state.reviewDate = action.payload.reviewDate
             state.reviewImg = action.payload.reviewImg
-            state.reviewRef = action.payload.reviewRef
         }
     }
 

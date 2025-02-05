@@ -10,11 +10,6 @@ import { useSelector } from "react-redux";
 const AcoesDePesquisa = (props) => {
     //useState redux para usar o titulo da pesquisa selecionada na tela anterior
     const titulo = useSelector((state) => state.review.reviewName)
-    props.navigation.setOptions({ title: titulo });
-
-
-    const referencia = "";
-    const nomePesquisa= "";
 
     const navigateScreenModificar = ()=>{
         props.navigation.push("ModificarPesquisa");
@@ -30,9 +25,9 @@ const AcoesDePesquisa = (props) => {
 
 
     useEffect(() => {
-        props.navigation.setOptions({title: nomePesquisa})
+        props.navigation.setOptions({title: titulo})
     },
-    [])
+    [titulo])
 
     return (
         <View style={estilos.view}>

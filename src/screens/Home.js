@@ -1,41 +1,38 @@
 //Importação
 
 import { View, Text, Image, StyleSheet, TouchableOpacity, TextInput, FlatList } from "react-native";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Card from "../components/Card";
 import Icon from "react-native-vector-icons/MaterialIcons"
 import { useDispatch } from "react-redux";
 import { reducerSetReview } from "../../redux/reviewSlice";
-import { query, onSnapshot, initializeFirestore, collection, doc, getDoc } from 'firebase/firestore';
-import { app, auth_mod } from '../firebase/config';
-
+import { query, onSnapshot, initializeFirestore, getDoc } from 'firebase/firestore';
+import { app} from '../firebase/config';
+import { userCollection, getReferenciaDoc } from '../utils/firestoreUtils';
+import { useFocusEffect } from '@react-navigation/native';
 //Definição
 
 const Home = (props) => {
-
-
 
   const dispatch = useDispatch();
 
   const [txtBusca, setBusca] = useState("");
   const [pesquisas, setPesquisa] = useState([]);
-  const db = initializeFirestore(app, { experimentalForceLongPolling: true });
-  const userCollection = collection(db, "usuarios", auth_mod.currentUser.uid, "pesquisas");
 
   const novaPesquisa = () => {
     props.navigation.push("NovaPesquisa");
   }
 
-  const selecionarPesquisa = (event) => {
+  const selecionarPesquisa = (id) => {
     //assim quer tornar as pesquisas dinamicas, passar os valores do nome, data e imagem no dispatch
-    const referenciaDoc = doc(db, "usuarios", auth_mod.currentUser.uid, "pesquisas", id);
+    const referenciaDoc = getReferenciaDoc(id);
     getDoc(referenciaDoc).then(
-      (pesquisaData ) => {
-
+      (pesquisaData) => {
         dispatch(reducerSetReview({
+          reviewId: id,
           reviewName: pesquisaData.data().nome,
           reviewDate: pesquisaData.data().data,
-          reviewRef: referenciaDoc
+          reviewImg: pesquisaData.data().imagem
         }))
 
         props.navigation.push("AcoesDePesquisa")
@@ -44,18 +41,21 @@ const Home = (props) => {
 
   }
 
-  useEffect(() => {
-    const queryPesquisas = query(userCollection);
+  useFocusEffect(
+    useCallback(() => {
 
-    const unsubscribe = onSnapshot(queryPesquisas, (snapshot) => {
-      const p = snapshot.docs.map((pesquisa) => ({
-        id: pesquisa.id,
-        ...pesquisa.data()
-      }));
-      setPesquisa(p)
-    })
-    return () => unsubscribe();
-  }, [])
+      const queryPesquisas = query(userCollection);
+      const unsubscribe = onSnapshot(queryPesquisas, (snapshot) => {
+        const p = snapshot.docs.map((pesquisa) => ({
+          id: pesquisa.id,
+          ...pesquisa.data()
+        }));
+        setPesquisa(p);
+      });
+      return () => { unsubscribe(); };
+    },
+      [])
+  );
 
   return (
     <View style={estilos.view}>

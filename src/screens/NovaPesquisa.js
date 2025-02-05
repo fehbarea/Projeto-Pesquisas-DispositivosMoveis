@@ -24,11 +24,20 @@ const NovaPesquisa = (props) => {
     let invalido = txtNome == "" || txtData == "";
     txtNome == "" ? setErroNome("Preencha o nome da pesquisa") : setErroNome("");
     txtData == "" ? setErroData("Preencha a data") : setErroData("");
+
     const docPesquisa = {
       nome: txtNome,
       data: txtData,
-      imagem: imagem
+      imagem: imagem,
+      votos: {
+        "pessimo": 0,
+        "ruim": 0,
+        "neutro": 0,
+        "bom": 0,
+        "excelente": 0
+      }
     }
+
     if (!invalido) {
       addDoc(userCollection, docPesquisa).then(() => {
         props.navigation.push("Drawer");
