@@ -1,17 +1,36 @@
 //Importação
 
 import { View, Text, Image, StyleSheet } from "react-native";
+import PieChart from "react-native-pie-chart";
+import {useState} from "react";
 
 //Definição
 
 const Relatorio = (props) => {
 
 
+    const [votosExcelente, setVotosExcelente] = useState(10);
+    const [votosBom, setVotosBom] = useState(20);
+    const [votosNeutro, setVotosNeutro] = useState(30);
+    const [votosRuim, setVotosRuim] = useState(40);
+    const [votosPessimo, setVotosPessimo] = useState(50);
+
+    const series = [
+        { value: votosExcelente, color: '#F1CE7E' },
+        { value: votosBom, color: '#6994FE' },
+        { value: votosNeutro, color: '#5FCDA4' },
+        { value: votosRuim, color: '#EA7288' },
+        { value: votosPessimo, color: '#53D8D8' }
+        ];    
+
     return (
         <View style={estilos.view}>
-            
+
             <View style={estilos.containerImage}>
-                <Image style={estilos.image} resizeMode="contain" source={require('../imgs/grafico.png')} />
+                <PieChart
+                widthAndHeight={250} 
+                series={series}
+                />
             </View>
 
             <View style={estilos.containerLegenda}>
@@ -33,7 +52,7 @@ const Relatorio = (props) => {
             </View>
             <View style={estilos.legenda}>
                 <View style={[estilos.bloquinho, {backgroundColor: '#53D8D8'}]} />
-                <Text style={estilos.texto}>Excelente</Text>
+                <Text style={estilos.texto}>Péssimo</Text>
             </View>
             </View>
 
@@ -56,11 +75,6 @@ const estilos = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
         
-    },
-    image:{
-        height: "100%", 
-        width: "100%", 
-       
     },
     legenda:{
         flexDirection: 'row',
