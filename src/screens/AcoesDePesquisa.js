@@ -1,5 +1,6 @@
 //Importação
 
+import { useEffect } from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity, TextInput } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 
@@ -7,10 +8,11 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 
 const AcoesDePesquisa = (props) => {
 
-    const referencia = props.params;
+    const referencia = "";
+    const nomePesquisa= "";
 
     const navigateScreenModificar = ()=>{
-        props.navigation.push("ModificarPesquisa",{referencia});
+        props.navigation.push("ModificarPesquisa");
     }
 
     const navigateScreenColetaDedos= ()=>{
@@ -19,7 +21,13 @@ const AcoesDePesquisa = (props) => {
 
     const navigateScreenRelatorio = ()=>{
         props.navigation.push("Relatorio");
-    }
+    }   
+
+
+    useEffect(() => {
+        props.navigation.setOptions({title: nomePesquisa})
+    },
+    [])
 
     return (
         <View style={estilos.view}>

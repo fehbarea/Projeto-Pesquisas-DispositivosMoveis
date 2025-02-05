@@ -13,13 +13,23 @@ const ModificarPesquisa = (props) => {
   const [txtNome, setNome] = useState("Carnaval 2024");
   const [txtData, setData] = useState("16/02/2024");
   const [isPopUpVisible,setIsPopUpVisibile] = useState(false);
-  const referenciaDoc = props.params;
   const [imagem, setImagem] = useState("");
 
+  const referenciaDoc = "";
+  const data = "";
+  const imageURI = "";
 
   const salvar = () => {
-    setIsPopUpVisibile(false);
-    props.navigation.goBack();
+
+    updateDoc(referenciaDoc, {
+      nome: txtNome,
+      data: txtData,
+      imagem: imagem
+    }).then(() => {
+      
+      setIsPopUpVisibile(false);
+      props.navigation.goBack();
+    })
   }
 
   const apagar = () => {
@@ -67,8 +77,6 @@ const ModificarPesquisa = (props) => {
           </Pressable>
 
         </View>
-
-
 
       </View>
 

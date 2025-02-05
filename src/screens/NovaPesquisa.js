@@ -1,22 +1,15 @@
 //Importação
-
 import { View, Text, Image, StyleSheet, TouchableOpacity, TextInput, Pressable } from "react-native";
 import { useState } from "react";
-
-import Card from "../components/Card";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-import ImageResizer from "react-native-image-resizer";
-import { Alert } from 'react-native';
-import { PermissionsAndroid } from 'react-native';
 import { obterImagem } from "../utils/utils.js";
-
 import { app, auth_mod } from '../firebase/config'
 import { initializeFirestore, collection, addDoc } from 'firebase/firestore';
 
 //Definição
 
 const NovaPesquisa = (props) => {
+
   const [txtNome, setNome] = useState("");
   const [txtData, setData] = useState("");
   const [imagem, setImagem] = useState("");
@@ -26,7 +19,6 @@ const NovaPesquisa = (props) => {
 
   const db = initializeFirestore(app, { experimentalForceLongPolling: true });
   const userCollection = collection(db, "usuarios", auth_mod.currentUser.uid, "pesquisas");
-
 
   const cadastrar = () => {
     let invalido = txtNome == "" || txtData == "";
@@ -45,34 +37,6 @@ const NovaPesquisa = (props) => {
       })
 
     }
-
-  }
-
-  const convertUriToBase64 = async (uri) => {
-    const resizedImage = await ImageResizer.createResizedImage(
-      uri,
-      700,
-      700,
-      'JPEG',
-      100
-    );
-    const imageUri = await fetch(resizedImage.uri);
-    const imagemBlob = await imageUri.blob();
-    console.log(imagemBlob);
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setImagem(reader.result);
-    };
-    reader.readAsDataURL(imagemBlob);
-  }
-
-
-  const obterImagem = () => {
-    launchImageLibrary({ mediaType: "photo" }, (result) => {
-      if (result.assets && result.assets.length > 0) {
-        convertUriToBase64(result.assets[0].uri);
-      }
-    })
   }
 
   return (
@@ -87,28 +51,31 @@ const NovaPesquisa = (props) => {
 
         <View style={estilos.cData}>
           <Text style={estilos.textoPadrao}>Data</Text>
+
           <View style={estilos.cInputData}>
             <TextInput style={estilos.inputTextData} label='Data' value={txtData} onChangeText={setData} />
             <Icon name='calendar-month-outline' size={30} style={estilos.iconCalendario} />
           </View>
-          <Text style={estilos.textoValidacao}>{txtErroData}</Text>
 
+          <Text style={estilos.textoValidacao}>{txtErroData}</Text>
         </View>
+
+
         <View style={estilos.cImagem}>
           <Pressable style={({ pressed }) => [estilos.inputImagem, { transform: [{ scale: pressed ? 0.95 : 1 }] },]} onPress={() => obterImagem(setImagem)}>
             <Text style={estilos.textoImagem}>Câmera/Galeria de imagens</Text>
           </Pressable>
           <Image source={{ uri: imagem }} style={estilos.imagemSelecionada} resizeMode="contain" />
         </View>
+
+
+        <View style={estilos.cBotao}>
+          <TouchableOpacity style={estilos.botao} onPress={cadastrar}>
+            <Text style={estilos.textoBotaoCadastrar}>CADASTRAR</Text>
+          </TouchableOpacity>
+        </View>
+
       </View>
-
-
-      <View style={estilos.cBotao}>
-        <TouchableOpacity style={estilos.botao} onPress={cadastrar}>
-          <Text style={estilos.textoBotaoCadastrar}>CADASTRAR</Text>
-        </TouchableOpacity>
-      </View>
-
     </View>
   );
 }
@@ -157,10 +124,6 @@ const estilos = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    flex: 0.40,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'flex-start',
   },
 
   cBotao: {
