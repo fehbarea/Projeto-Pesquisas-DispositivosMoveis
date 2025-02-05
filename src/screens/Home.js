@@ -4,11 +4,16 @@ import {View, Text, Image, StyleSheet, TouchableOpacity,TextInput} from "react-n
 import {useState} from "react";
 import Card from "../components/Card";
 import Icon from "react-native-vector-icons/MaterialIcons"
-
+import { useDispatch } from "react-redux";
+import { reducerSetReview } from "../../redux/reviewSlice";
 
 //Definição
 
 const Home = (props) => {
+
+
+
+  const dispatch = useDispatch(); 
 
   const [txtBusca, setBusca] = useState("");
 
@@ -16,7 +21,14 @@ const Home = (props) => {
     props.navigation.push("NovaPesquisa");
   }
 
-  const selecionarPesquisa = () =>{
+  const selecionarPesquisa = (event) =>{
+    //assim quer tornar as pesquisas dinamicas, passar os valores do nome, data e imagem no dispatch
+
+    //utilizando pesquisa SECOMP para teste
+    dispatch(reducerSetReview({reviewName: "SECOMP 2023",
+                               reviewDate: "10/10/2023",
+                               reviewImg: "../imgs/notebook-mobile.png"}))
+
     props.navigation.push("AcoesDePesquisa");
   }
 

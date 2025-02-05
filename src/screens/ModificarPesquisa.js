@@ -4,15 +4,17 @@ import {View, Text, Image, StyleSheet, TouchableOpacity,TextInput, Modal, Pressa
 import {useState} from "react";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 import { obterImagem } from "../utils/utils.js";
+import { useSelector } from "react-redux";
 
 //Definição
 
 const ModificarPesquisa = (props) => {
 
-  const [txtNome, setNome] = useState("Carnaval 2024");
-  const [txtData, setData] = useState("16/02/2024");
+  //utilizando useSelector do redux para passar detalhes da pesquisa para modificação
+  const [txtNome, setNome] = useState(useSelector((state) => state.review.reviewName));
+  const [txtData, setData] = useState(useSelector((state) => state.review.reviewDate));
   const [isPopUpVisible,setIsPopUpVisibile] = useState(false);
-  const [imagem, setImagem] = useState("");
+  const [imagem, setImagem] = useState(useSelector((state) => state.review.reviewImg));
 
 
   const salvar = () => {
