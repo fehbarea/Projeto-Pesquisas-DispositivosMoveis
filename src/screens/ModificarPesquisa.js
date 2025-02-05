@@ -3,8 +3,10 @@
 import {View, Text, Image, StyleSheet, TouchableOpacity,TextInput, Modal, Pressable} from "react-native";
 import {useState} from "react";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
+import { updateDoc, deleteDoc } from 'firebase/firestore';
 import { obterImagem } from "../utils/utils.js";
 import { useSelector } from "react-redux";
+import { getReferenciaDoc} from '../utils/firestoreUtils'
 
 //Definição
 
@@ -16,14 +18,29 @@ const ModificarPesquisa = (props) => {
   const [isPopUpVisible,setIsPopUpVisibile] = useState(false);
   const [imagem, setImagem] = useState(useSelector((state) => state.review.reviewImg));
 
+  const docId = useSelector((state) => state.review.reviewId);
 
   const salvar = () => {
-    setIsPopUpVisibile(false);
-    props.navigation.goBack();
+
+    updateDoc(getReferenciaDoc(docId), {
+      nome: txtNome,
+      data: txtData,
+      imagem: imagem
+    }).then(() => {
+      
+      setIsPopUpVisibile(false);
+      props.navigation.goBack();
+    })
   }
 
   const apagar = () => {
-    setIsPopUpVisibile(true);
+    deleteDoc(getReferenciaDoc(docId))
+    .then(
+      () => {
+        setIsPopUpVisibile(true); 
+      }
+    )
+    
   }
 
   const popUpSim = () =>{
@@ -61,8 +78,6 @@ const ModificarPesquisa = (props) => {
           </Pressable>
 
         </View>
-
-
 
       </View>
 

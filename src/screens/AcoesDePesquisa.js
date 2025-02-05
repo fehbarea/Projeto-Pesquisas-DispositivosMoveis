@@ -1,5 +1,6 @@
 //Importação
 
+import { useEffect } from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity, TextInput } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 import { useSelector } from "react-redux";
@@ -9,8 +10,6 @@ import { useSelector } from "react-redux";
 const AcoesDePesquisa = (props) => {
     //useState redux para usar o titulo da pesquisa selecionada na tela anterior
     const titulo = useSelector((state) => state.review.reviewName)
-    props.navigation.setOptions({ title: titulo });
-
 
     const navigateScreenModificar = ()=>{
         props.navigation.push("ModificarPesquisa");
@@ -22,7 +21,13 @@ const AcoesDePesquisa = (props) => {
 
     const navigateScreenRelatorio = ()=>{
         props.navigation.push("Relatorio");
-    }
+    }   
+
+
+    useEffect(() => {
+        props.navigation.setOptions({title: titulo})
+    },
+    [titulo])
 
     return (
         <View style={estilos.view}>

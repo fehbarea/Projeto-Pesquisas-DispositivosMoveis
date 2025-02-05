@@ -1,7 +1,8 @@
-
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, Image } from "react-native";
 import { useState } from "react";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import { auth_mod } from '../firebase/config.js'
 
 //Definição
 
@@ -13,13 +14,21 @@ const AcoesDePesquisa = (props) => {
 
     const [msgError, setMsgError] = useState('')
 
-    const navigateToLogin = () => {
+    const userAuthentication = () => {
         let emailInvalido = verificaEmail(txtEmail);
        emailInvalido ? setMsgError('E-mail e/ou senha inválidos.') : setMsgError('');
         if(!emailInvalido){
-            props.navigation.navigate("Drawer");
+            
+            signInWithEmailAndPassword(auth_mod, txtEmail, txtSenha).then(
+                (user) => {
+                    console.log("logado com sucesso" + JSON.stringify(user));
+                    props.navigation.navigate("Drawer");
+                }
+            ).catch((error) => {
+                console.log('Erro: ' + JSON.stringify(error));
+                setMsgError('E-mail e/ou senha inválidos.' + error.message)
+            });
         }
-        //props...
     }
 
     const verificaEmail = (email) =>{
@@ -60,7 +69,7 @@ const AcoesDePesquisa = (props) => {
                 </View> 
 
                 <View style={estilos.containerBotoes}>
-                    <TouchableOpacity onPress={navigateToLogin} style={estilos.botao}>
+                    <TouchableOpacity onPress={userAuthentication} style={estilos.botao}>
                         <Text style={estilos.textoBotao}>Entrar</Text>
                     </TouchableOpacity>
                 </View>
