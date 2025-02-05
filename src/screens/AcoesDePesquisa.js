@@ -3,10 +3,15 @@
 import { useEffect } from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity, TextInput } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
+import { useSelector } from "react-redux";
 
 //Definição
 
 const AcoesDePesquisa = (props) => {
+    //useState redux para usar o titulo da pesquisa selecionada na tela anterior
+    const titulo = useSelector((state) => state.review.reviewName)
+    props.navigation.setOptions({ title: titulo });
+
 
     const referencia = "";
     const nomePesquisa= "";
