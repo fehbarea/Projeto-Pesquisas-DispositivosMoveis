@@ -6,7 +6,7 @@ import Card from "../components/Card";
 import Icon from "react-native-vector-icons/MaterialIcons"
 import { useDispatch } from "react-redux";
 import { reducerSetReview } from "../../redux/reviewSlice";
-import { query, onSnapshot, initializeFirestore, collection, updateDoc, doc } from 'firebase/firestore';
+import { query, onSnapshot, initializeFirestore, collection, doc, getDoc } from 'firebase/firestore';
 import { app, auth_mod } from '../firebase/config';
 
 //Definição
@@ -15,7 +15,7 @@ const Home = (props) => {
 
 
 
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
 
   const [txtBusca, setBusca] = useState("");
   const [pesquisas, setPesquisa] = useState([]);
@@ -26,22 +26,22 @@ const Home = (props) => {
     props.navigation.push("NovaPesquisa");
   }
 
-  const selecionarPesquisa = (event) =>{
+  const selecionarPesquisa = (event) => {
     //assim quer tornar as pesquisas dinamicas, passar os valores do nome, data e imagem no dispatch
+    const referenciaDoc = doc(db, "usuarios", auth_mod.currentUser.uid, "pesquisas", id);
+    getDoc(referenciaDoc).then(
+      (pesquisaData ) => {
 
-    //utilizando pesquisa SECOMP para teste
-    dispatch(reducerSetReview({reviewName: "SECOMP 2023",
-                               reviewDate: "10/10/2023",
-                               reviewImg: "../imgs/notebook-mobile.png"}))
+        dispatch(reducerSetReview({
+          reviewName: pesquisaData.data().nome,
+          reviewDate: pesquisaData.data().data,
+          reviewRef: referenciaDoc
+        }))
 
-    props.navigation.push("AcoesDePesquisa");
-  }
+        props.navigation.push("AcoesDePesquisa")
+      }
+    )
 
-  return(
-  const selecionarPesquisa = (id) => {
-      const referenciaDoc = doc(db, "usuarios", auth_mod.currentUser.uid, "pesquisas", id)
-      props.navigation.push("AcoesDePesquisa", { referencia: referenciaDoc })
-        
   }
 
   useEffect(() => {
