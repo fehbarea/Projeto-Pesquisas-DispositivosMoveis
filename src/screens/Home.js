@@ -1,15 +1,16 @@
 //Importação
-
 import { View, Text, Image, StyleSheet, TouchableOpacity, TextInput, FlatList } from "react-native";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import Card from "../components/Card";
 import Icon from "react-native-vector-icons/MaterialIcons"
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { reducerSetReview } from "../../redux/reviewSlice";
-import { query, onSnapshot, initializeFirestore, getDoc } from 'firebase/firestore';
-import { app} from '../firebase/config';
+import { query, onSnapshot, getDoc } from 'firebase/firestore';
 import { userCollection, getReferenciaDoc } from '../utils/firestoreUtils';
 import { useFocusEffect } from '@react-navigation/native';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth_mod } from '../firebase/config.js'
+
 //Definição
 
 const Home = (props) => {
@@ -18,6 +19,8 @@ const Home = (props) => {
 
   const [txtBusca, setBusca] = useState("");
   const [pesquisas, setPesquisa] = useState([]);
+  const [queryPesquisa, setQuerypesquisa] = useState(null);
+  const userId = useSelector((state) => state.user.userId);
 
   const novaPesquisa = () => {
     props.navigation.push("NovaPesquisa");
@@ -25,14 +28,14 @@ const Home = (props) => {
 
   const selecionarPesquisa = (id) => {
     //assim quer tornar as pesquisas dinamicas, passar os valores do nome, data e imagem no dispatch
-    const referenciaDoc = getReferenciaDoc(id);
+    const referenciaDoc = getReferenciaDoc(userId,id);
     getDoc(referenciaDoc).then(
       (pesquisaData) => {
         dispatch(reducerSetReview({
           reviewId: id,
           reviewName: pesquisaData.data().nome,
           reviewDate: pesquisaData.data().data,
-          reviewImg: pesquisaData.data().imagem
+          reviewImg: pesquisaData.data().imagem,
         }))
 
         props.navigation.push("AcoesDePesquisa")
@@ -41,21 +44,31 @@ const Home = (props) => {
 
   }
 
-  useFocusEffect(
-    useCallback(() => {
+  useEffect(
+    () => {
+      const unsubscribeAuth = onAuthStateChanged(auth_mod, (user) => {
+        if(user && user.uid){
+          setQuerypesquisa(query(userCollection(user.uid)));
+        }
+        });
 
-      const queryPesquisas = query(userCollection);
-      const unsubscribe = onSnapshot(queryPesquisas, (snapshot) => {
-        const p = snapshot.docs.map((pesquisa) => ({
-          id: pesquisa.id,
-          ...pesquisa.data()
-        }));
-        setPesquisa(p);
-      });
-      return () => { unsubscribe(); };
+        return unsubscribeAuth;
     },
-      [])
-  );
+    []
+  )
+
+  useEffect(() => {
+    if (!queryPesquisa) return;
+  
+    const unsubscribeSnapshot = onSnapshot(queryPesquisa, (snapshot) => {
+      const p = snapshot.docs.map((pesquisa) => ({
+        id: pesquisa.id,
+        ...pesquisa.data()
+      }));
+      setPesquisa(p); 
+    });
+     
+  }, [queryPesquisa]);
 
   return (
     <View style={estilos.view}>

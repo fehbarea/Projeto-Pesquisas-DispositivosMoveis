@@ -3,6 +3,9 @@ import { useState } from "react";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth_mod } from '../firebase/config.js'
+import { onAuthStateChanged } from "firebase/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { reducerSetUser } from "../../redux/userSlice.js";
 
 //Definição
 
@@ -14,6 +17,8 @@ const AcoesDePesquisa = (props) => {
 
     const [msgError, setMsgError] = useState('')
 
+    const dispatch = useDispatch();
+
     const userAuthentication = () => {
         let emailInvalido = verificaEmail(txtEmail);
        emailInvalido ? setMsgError('E-mail e/ou senha inválidos.') : setMsgError('');
@@ -21,8 +26,20 @@ const AcoesDePesquisa = (props) => {
             
             signInWithEmailAndPassword(auth_mod, txtEmail, txtSenha).then(
                 (user) => {
-                    console.log("logado com sucesso" + JSON.stringify(user));
-                    props.navigation.navigate("Drawer");
+                    const unsubscribe = onAuthStateChanged(auth_mod, (user) => {
+                        if (user) {
+                            console.log("Usuário autenticado:", auth_mod.currentUser.uid);
+
+                            dispatch(reducerSetUser({
+                                      userId:auth_mod.currentUser.uid
+                                    }))
+
+                            setTimeout(() => {
+                                unsubscribe();
+                                props.navigation.navigate("Drawer");
+                            }, 1000);
+                        }
+                    });
                 }
             ).catch((error) => {
                 console.log('Erro: ' + JSON.stringify(error));

@@ -13,12 +13,14 @@ import { getReferenciaDoc} from '../utils/firestoreUtils'
 const Relatorio = (props) => {
 
 
-    const [votosExcelente, setVotosExcelente] = useState(0);
-    const [votosBom, setVotosBom] = useState(0);
-    const [votosNeutro, setVotosNeutro] = useState(0);
-    const [votosRuim, setVotosRuim] = useState(0);
-    const [votosPessimo, setVotosPessimo] = useState(0);
+    const [votosExcelente, setVotosExcelente] = useState(1);
+    const [votosBom, setVotosBom] = useState(1);
+    const [votosNeutro, setVotosNeutro] = useState(1);
+    const [votosRuim, setVotosRuim] = useState(1);
+    const [votosPessimo, setVotosPessimo] = useState(1);
     const docId = useSelector((state) => state.review.reviewId);
+    const userId = useSelector((state) =>state.user.userId);
+
 
     const series = [
         { value: votosExcelente, color: '#F1CE7E' },
@@ -30,7 +32,7 @@ const Relatorio = (props) => {
 
     useFocusEffect(
         useCallback(()=>{
-            const unsubscribe = onSnapshot(getReferenciaDoc(docId), (docPesquisa) => {
+            const unsubscribe = onSnapshot(getReferenciaDoc(userId, docId), (docPesquisa) => {
                 setVotosPessimo(docPesquisa.data().votos.pessimo);
                 setVotosRuim(docPesquisa.data().votos.ruim);
                 setVotosNeutro(docPesquisa.data().votos.neutro);

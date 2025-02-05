@@ -5,6 +5,7 @@ const initialValues = {
     reviewName: null,
     reviewDate: null,
     reviewImg: null,
+    reviewUserId: null
 
 }
 
@@ -12,11 +13,12 @@ export const reviewSlice = createSlice({
     name: 'review',
     initialState: initialValues,
     reducers: {
-        reducerSetReview: (state, action) =>{
+        reducerSetReview: (state, action) => {
             state.reviewId = action.payload.reviewId
             state.reviewName = action.payload.reviewName
             state.reviewDate = action.payload.reviewDate
             state.reviewImg = action.payload.reviewImg
+            state.reviewUserId = action.payload.reviewUserId
         }
     }
 
@@ -24,4 +26,4 @@ export const reviewSlice = createSlice({
 
 export const { reducerSetReview } = reviewSlice.actions;
 
-export default reviewSlice; 
+export {reviewSlice}; 

@@ -15,61 +15,67 @@ const Coleta= (props) => {
     const [txtData, setData] = useState(useSelector((state) => state.review.reviewDate));
     const [imagem, setImagem] = useState(useSelector((state) => state.review.reviewImg));
     const docId = useSelector((state) => state.review.reviewId);
+    const userId = useSelector((state) => state.user.userId);
 
     const navigateScreen = ()=>{
         props.navigation.navigate("AgradecimentoParticipacao");
     };
 
     function botaoPessimo(){
-        updateDoc(getReferenciaDoc(docId),{
+        updateDoc(getReferenciaDoc(userId,docId),{
             'votos.pessimo': increment(1)
         }).then(
             (data) => {
-                console.log("sucesso " + data)
+                console.log("sucesso " + data);
+                navigateScreen;
             }
         ).catch(
             (error) => console.log(JSON.stringify("erro"+error))
         )
     };
     function botaoRuim(){
-        updateDoc(getReferenciaDoc(docId),{
+        updateDoc(getReferenciaDoc(userId,docId),{
             'votos.ruim': increment(1)
         }).then(
             (data) => {
                 console.log("sucesso " + data)
+                navigateScreen;
             }
         ).catch(
             (error) => console.log(JSON.stringify("erro"+error))
         )
     };
     function botaoNeutro(){
-        updateDoc(getReferenciaDoc(docId),{
+        updateDoc(getReferenciaDoc(userId,docId),{
             'votos.neutro': increment(1)
         }).then(
             (data) => {
                 console.log("sucesso " + data)
+                navigateScreen;
             }
         ).catch(
             (error) => console.log(JSON.stringify("erro"+error))
         )
     };
     function botaoBom(){
-        updateDoc(getReferenciaDoc(docId),{
+        updateDoc(getReferenciaDoc(userId,docId),{
             'votos.bom': increment(1)
         }).then(
             (data) => {
                 console.log("sucesso " + data)
+                navigateScreen;
             }
         ).catch(
             (error) => console.log(JSON.stringify("erro"+error))
         )
     };
     function botaoExcelente(){
-        updateDoc(getReferenciaDoc(docId),{
+        updateDoc(getReferenciaDoc(userId,docId),{
             'votos.excelente': increment(1)
         }).then(
             (data) => {
                 console.log("sucesso " + data)
+                navigateScreen;
             }
         ).catch(
             (error) => console.log(JSON.stringify("erro"+error))

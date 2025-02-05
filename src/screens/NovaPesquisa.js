@@ -5,6 +5,8 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 import { obterImagem } from "../utils/utils.js";
 import { app, auth_mod } from '../firebase/config'
 import { initializeFirestore, collection, addDoc } from 'firebase/firestore';
+import { userCollection, getReferenciaDoc } from '../utils/firestoreUtils';
+import { useSelector } from "react-redux";
 
 //Definição
 
@@ -16,9 +18,8 @@ const NovaPesquisa = (props) => {
 
   const [txtErroNome, setErroNome] = useState("");
   const [txtErroData, setErroData] = useState("");
+  const userId = useSelector((state) => state.user.userId);
 
-  const db = initializeFirestore(app, { experimentalForceLongPolling: true });
-  const userCollection = collection(db, "usuarios", auth_mod.currentUser.uid, "pesquisas");
 
   const cadastrar = () => {
     let invalido = txtNome == "" || txtData == "";
@@ -39,8 +40,9 @@ const NovaPesquisa = (props) => {
     }
 
     if (!invalido) {
-      addDoc(userCollection, docPesquisa).then(() => {
+      addDoc(userCollection(userId), docPesquisa).then(() => {
         props.navigation.push("Drawer");
+        console.log("item adicionado")
       }).catch((error) => {
         console.log(JSON.stringify(error));
       })
@@ -74,7 +76,7 @@ const NovaPesquisa = (props) => {
           <Pressable style={({ pressed }) => [estilos.inputImagem, { transform: [{ scale: pressed ? 0.95 : 1 }] },]} onPress={() => obterImagem(setImagem)}>
             <Text style={estilos.textoImagem}>Câmera/Galeria de imagens</Text>
           </Pressable>
-          <Image source={{ uri: imagem }} style={estilos.imagemSelecionada} resizeMode="contain" />
+          <Image source={imagem ? { uri: imagem } : {}} style={estilos.imagemSelecionada} resizeMode="contain" />
         </View>
 
 

@@ -17,12 +17,13 @@ const ModificarPesquisa = (props) => {
   const [txtData, setData] = useState(useSelector((state) => state.review.reviewDate));
   const [isPopUpVisible,setIsPopUpVisibile] = useState(false);
   const [imagem, setImagem] = useState(useSelector((state) => state.review.reviewImg));
+  const userId = useSelector((state) => state.user.userId);
 
   const docId = useSelector((state) => state.review.reviewId);
 
   const salvar = () => {
-
-    updateDoc(getReferenciaDoc(docId), {
+    console.log(userId)
+    updateDoc(getReferenciaDoc(userId, docId), {
       nome: txtNome,
       data: txtData,
       imagem: imagem
@@ -34,7 +35,7 @@ const ModificarPesquisa = (props) => {
   }
 
   const apagar = () => {
-    deleteDoc(getReferenciaDoc(docId))
+    deleteDoc(getReferenciaDoc(userId, docId))
     .then(
       () => {
         setIsPopUpVisibile(true); 
