@@ -39,6 +39,16 @@ Este projeto é uma aplicação móvel para gerenciar pesquisas e relatórios. E
 - **[React Native Vector Icons](https://github.com/oblador/react-native-vector-icons)**: Biblioteca de ícones para React Native.
 - **[react-native-svg-charts](https://github.com/JesperLekland/react-native-svg-charts)**: Biblioteca para criação de gráficos em SVG.
 
+### Hooks Utilizados
+
+- `useState`
+- `useEffect`
+- `useCallback`
+- `useFocusEffect`
+- `useSelector`
+- `useDispatch`
+- `useNavigation`
+
 ## Estrutura do Projeto
 
 - **src/screens**: Contém as telas principais do aplicativo, como Login, Nova Conta, Recuperar Senha, Relatório, etc.
