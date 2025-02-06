@@ -2,24 +2,25 @@
 
 import { View, Text, Image, StyleSheet } from "react-native";
 import PieChart from "react-native-pie-chart";
-import {useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { onSnapshot } from "firebase/firestore";
 import { useSelector } from "react-redux";
 import { useFocusEffect } from '@react-navigation/native';
-import { getReferenciaDoc} from '../utils/firestoreUtils'
+import { getReferenciaDoc } from '../utils/firestoreUtils'
 
 //Definição
 
 const Relatorio = (props) => {
 
 
-    const [votosExcelente, setVotosExcelente] = useState(1);
-    const [votosBom, setVotosBom] = useState(1);
-    const [votosNeutro, setVotosNeutro] = useState(1);
-    const [votosRuim, setVotosRuim] = useState(1);
-    const [votosPessimo, setVotosPessimo] = useState(1);
+    const [votosExcelente, setVotosExcelente] = useState();
+    const [votosBom, setVotosBom] = useState();
+    const [votosNeutro, setVotosNeutro] = useState();
+    const [votosRuim, setVotosRuim] = useState();
+    const [votosPessimo, setVotosPessimo] = useState();
     const docId = useSelector((state) => state.review.reviewId);
-    const userId = useSelector((state) =>state.user.userId);
+    const userId = useSelector((state) => state.user.userId);
+    const [votosNulos, setVotosNulos] = useState(1)
 
 
     const series = [
@@ -27,23 +28,32 @@ const Relatorio = (props) => {
         { value: votosBom, color: '#6994FE' },
         { value: votosNeutro, color: '#5FCDA4' },
         { value: votosRuim, color: '#EA7288' },
-        { value: votosPessimo, color: '#53D8D8' }
+        { value: votosPessimo, color: '#53D8D8' },
+        { value: votosNulos, color: '#ffffff' }
     ];
 
     useFocusEffect(
-        useCallback(()=>{
+        useCallback(() => {
             const unsubscribe = onSnapshot(getReferenciaDoc(userId, docId), (docPesquisa) => {
-                setVotosPessimo(docPesquisa.data().votos.pessimo);
-                setVotosRuim(docPesquisa.data().votos.ruim);
-                setVotosNeutro(docPesquisa.data().votos.neutro);
-                setVotosBom(docPesquisa.data().votos.bom);
-                setVotosExcelente(docPesquisa.data().votos.excelente);
+
+                setVotosPessimo(docPesquisa.data().votos.pessimo ? docPesquisa.data().votos.pessimo : 0);
+                setVotosRuim(docPesquisa.data().votos.ruim ? docPesquisa.data().votos.ruim : 0);
+                setVotosNeutro(docPesquisa.data().votos.neutro ? docPesquisa.data().votos.neutro : 0);
+                setVotosBom(docPesquisa.data().votos.bom ? docPesquisa.data().votos.bom : 0);
+                setVotosExcelente(docPesquisa.data().votos.excelente ? docPesquisa.data().votos.excelente : 0);
+
+                if ((votosBom + votosExcelente + votosNeutro + votosRuim + votosPessimo) == 0) {
+                    setVotosNulos(1)
+                } else {
+                    setVotosNulos(0)
+                }
             })
 
             return () => { unsubscribe(); };
         },
-    [])
+            [])
     );
+
 
     return (
         <View style={estilos.view}>
@@ -53,6 +63,7 @@ const Relatorio = (props) => {
                     widthAndHeight={250}
                     series={series}
                 />
+
             </View>
 
             <View style={estilos.containerLegenda}>

@@ -17,7 +17,7 @@ const Coleta= (props) => {
     const docId = useSelector((state) => state.review.reviewId);
     const userId = useSelector((state) => state.user.userId);
 
-    const navigateScreen = ()=>{
+    const navigateScreen = () =>{
         props.navigation.navigate("AgradecimentoParticipacao");
     };
 
@@ -27,7 +27,7 @@ const Coleta= (props) => {
         }).then(
             (data) => {
                 console.log("sucesso " + data);
-                navigateScreen;
+                navigateScreen();
             }
         ).catch(
             (error) => console.log(JSON.stringify("erro"+error))
@@ -39,7 +39,7 @@ const Coleta= (props) => {
         }).then(
             (data) => {
                 console.log("sucesso " + data)
-                navigateScreen;
+                navigateScreen();
             }
         ).catch(
             (error) => console.log(JSON.stringify("erro"+error))
@@ -51,7 +51,7 @@ const Coleta= (props) => {
         }).then(
             (data) => {
                 console.log("sucesso " + data)
-                navigateScreen;
+                navigateScreen();
             }
         ).catch(
             (error) => console.log(JSON.stringify("erro"+error))
@@ -63,7 +63,7 @@ const Coleta= (props) => {
         }).then(
             (data) => {
                 console.log("sucesso " + data)
-                navigateScreen;
+                navigateScreen();
             }
         ).catch(
             (error) => console.log(JSON.stringify("erro"+error))
@@ -75,7 +75,7 @@ const Coleta= (props) => {
         }).then(
             (data) => {
                 console.log("sucesso " + data)
-                navigateScreen;
+                navigateScreen();
             }
         ).catch(
             (error) => console.log(JSON.stringify("erro"+error))
